@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Quentin Machado — Développeur Web Full-Stack</title>
+<link rel="icon" type="image/png" href="input/favicon-32x32.png">
+<meta name="description" content="Quentin Machado, développeur web full-stack. Interfaces modernes, précises et performantes.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=9">
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div class="grid-overlay"></div>
+<div class="scan-overlay"></div>
+
+<nav class="nav" id="nav">
+  <div class="brand">
+    <span class="brand-orb">
+      <span class="brand-dot"></span>
+      <span class="brand-ring"></span>
+    </span>
+    <span>FLAMACH<span class="accent">.</span>DEV</span>
+  </div>
+
+  <div class="nav-links" id="nav-links">
+    <a href="#about" data-section="about">À propos</a>
+    <a href="#projects" data-section="projects">Projets</a>
+    <a href="#booking" data-section="booking">Réserver</a>
+    <a href="#contact" data-section="contact">Contact</a>
+  </div>
+
+  <a href="#contact" class="cta nav-cta">Contact</a>
+
+  <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" data-section="about">À propos</a>
+  <a href="#projects" data-section="projects">Projets</a>
+  <a href="#booking" data-section="booking">Réserver</a>
+  <a href="#contact" data-section="contact">Contact</a>
+  <a href="#contact" class="cta mobile-cta">Contact</a>
+</div>
+
+<section id="hero" class="hero">
+  <model-viewer class="planet-3d" src="input/rocket_orbiting_moon.glb" alt="Fusée en orbite autour d'une lune" auto-rotate rotation-per-second="18deg" disable-zoom disable-pan disable-tap shadow-intensity="0" exposure="1.1" interaction-prompt="none"></model-viewer>
+  <model-viewer class="ship-3d" src="input/outer_wilds__the_ship.glb" alt="Vaisseau spatial Outer Wilds" auto-rotate rotation-per-second="-14deg" disable-zoom disable-pan disable-tap shadow-intensity="0" exposure="1.1" interaction-prompt="none"></model-viewer>
+
+  <div class="badge">
+    <span class="pulse-dot"></span>
+    Disponible pour de nouveaux projets
+  </div>
+
+  <h1 class="hero-title">
+    Quentin Machado <br>
+    <span class="gradient-text">Développeur Web</span> <br>
+    Full-Stack
+  </h1>
+
+  <p class="hero-sub">Je conçois et développe des interfaces web modernes, précises et performantes.</p>
+
+  <div class="hero-actions">
+    <a href="#projects" class="cta hero-cta">Voir mes projets</a>
+    <a href="#about" class="ghost-btn">À propos de moi</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Descendre</span>
+    <span class="scroll-line"></span>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <model-viewer class="blackhole-3d" src="input/blackhole.glb" alt="Trou noir" auto-rotate rotation-per-second="10deg" disable-zoom disable-pan disable-tap shadow-intensity="0" exposure="1.1" interaction-prompt="none"></model-viewer>
+
+  <div class="section-head">
+    <div class="eyebrow">À propos</div>
+    <h2>Qui suis-je</h2>
+  </div>
+
+  <div class="about-grid">
+    <div class="profile-card">
+      <div class="avatar">QM</div>
+      <h3>Quentin Machado</h3>
+      <p class="role">Développeur Full-Stack</p>
+      <div class="vitals">
+        <div class="vital"><div class="vital-value">4+</div><div class="vital-label">Années XP</div></div>
+        <div class="vital"><div class="vital-value">8</div><div class="vital-label">Projets</div></div>
+        <div class="vital"><div class="vital-value">4</div><div class="vital-label">Cafés/jour</div></div>
+        <div class="vital"><div class="vital-value">99.9%</div><div class="vital-label">Uptime</div></div>
+      </div>
+    </div>
+
+    <div class="about-body">
+      <p class="bio">
+        Rattaché à la station orbitale du web depuis plus de 4 ans, je conçois des interfaces qui allient précision d'ingénierie et esthétique. Ma spécialité&nbsp;: transformer des besoins produit complexes en expériences fluides et surtout rapide de A à Z.
+      </p>
+
+      <div class="eyebrow small">Compétences</div>
+
+      <div class="skills-radial" id="skills-radial">
+        <div class="skill-gauge" data-level="90">
+          <div class="dial"><div class="dial-inner"><span>90%</span></div></div>
+          <span class="skill-name">REACT / TYPESCRIPT</span>
+        </div>
+        <div class="skill-gauge" data-level="80">
+          <div class="dial"><div class="dial-inner"><span>80%</span></div></div>
+          <span class="skill-name">UI / UX ENGINEERING</span>
+        </div>
+        <div class="skill-gauge" data-level="75">
+          <div class="dial"><div class="dial-inner"><span>75%</span></div></div>
+          <span class="skill-name">NODE.JS / API</span>
+        </div>
+        <div class="skill-gauge" data-level="80">
+          <div class="dial"><div class="dial-inner"><span>80%</span></div></div>
+          <span class="skill-name">PYTHON / SCRIPTING</span>
+        </div>
+        <div class="skill-gauge" data-level="80">
+          <div class="dial"><div class="dial-inner"><span>80%</span></div></div>
+          <span class="skill-name">DEVOPS / CI-CD</span>
+        </div>
+        <div class="skill-gauge" data-level="70">
+          <div class="dial"><div class="dial-inner"><span>70%</span></div></div>
+          <span class="skill-name">IA / PROMPTS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <div class="section-head">
+    <div class="eyebrow">Projets</div>
+    <h2>Projets récents</h2>
+  </div>
+
+  <div class="project-grid">
+    <article class="project-card">
+      <div class="project-top">
+        <div class="project-icon">🛰️</div>
+        <span class="status status-online">● En ligne</span>
+      </div>
+      <h3>Orbital Commerce</h3>
+      <p>Plateforme e-commerce headless, panier temps réel et paiement en une étape. Trafic multiplié par 3.</p>
+      <div class="stack"><span>Next.js</span><span>Stripe</span><span>Redis</span></div>
+      <a href="#" class="project-link">Voir le code ↗</a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-top">
+        <div class="project-icon">📡</div>
+        <span class="status status-progress">● En cours</span>
+      </div>
+      <h3>Signal Dashboard</h3>
+      <p>Tableau de bord analytique temps réel pour équipes produit, visualisation de flux de données massifs.</p>
+      <div class="stack"><span>React</span><span>D3.js</span><span>WebSocket</span></div>
+      <a href="#" class="project-link">Voir le code ↗</a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-top">
+        <div class="project-icon">🛸</div>
+        <span class="status status-online">● En ligne</span>
+      </div>
+      <h3>Nebula CMS</h3>
+      <p>CMS headless sur-mesure pour éditeurs de contenu, prévisualisation instantanée et versioning.</p>
+      <div class="stack"><span>Vue</span><span>GraphQL</span><span>Node</span></div>
+      <a href="#" class="project-link">Voir le code ↗</a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-top">
+        <div class="project-icon">🔭</div>
+        <span class="status status-maintenance">● Maintenance</span>
+      </div>
+      <h3>Deep Space CRM</h3>
+      <p>CRM interne pour équipes commerciales, automatisation de pipelines et reporting.</p>
+      <div class="stack"><span>React</span><span>Postgres</span><span>tRPC</span></div>
+      <a href="#" class="project-link">Voir le code ↗</a>
+    </article>
+  </div>
+</section>
+
+<section id="booking" class="booking">
+  <div class="section-head">
+    <div class="eyebrow">Rendez-vous</div>
+    <h2>Réserver un appel</h2>
+    <p class="booking-sub">Réservez un créneau de 30 minutes pour discuter de votre projet.</p>
+  </div>
+
+  <div class="calendar-card">
+    <div class="calendar-head">
+      <span class="calendar-month">Cal.eu · flamach</span>
+      <span class="available-tag"><span class="pulse-dot"></span>Réservation en direct</span>
+    </div>
+
+    <div id="cal-booking-embed" class="cal-embed"></div>
+
+    <div class="calendar-footer">
+      <div class="selected-slot">Propulsé par <a href="https://www.cal.eu/flamach/30min" target="_blank" rel="noopener">cal.eu/flamach</a></div>
+      <a href="https://www.cal.eu/flamach/30min" target="_blank" rel="noopener" class="cta booking-cta">Ouvrir dans un nouvel onglet</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="section-head">
+    <div class="eyebrow">Contact</div>
+    <h2>Discutons de votre projet</h2>
+    <p class="contact-sub">Un mail, une idée, un projet en tête&nbsp;? Écrivez-moi, je réponds rapidement.</p>
+  </div>
+
+  <form class="contact-card" action="https://formsubmit.co/quentin.machado.pro@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Nouveau message depuis flamach.dev">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+    <div class="form-row">
+      <div class="form-field">
+        <label for="contact-firstname">Prénom</label>
+        <input type="text" id="contact-firstname" name="Prénom" placeholder="Jean" required>
+      </div>
+      <div class="form-field">
+        <label for="contact-lastname">Nom</label>
+        <input type="text" id="contact-lastname" name="Nom" placeholder="Dupont" required>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="contact-email">Email</label>
+      <input type="email" id="contact-email" name="Email" placeholder="jean.dupont@email.com" required>
+    </div>
+
+    <div class="form-field">
+      <label for="contact-message">Message</label>
+      <textarea id="contact-message" name="Message" rows="5" placeholder="Parlez-moi de votre projet..." required></textarea>
+    </div>
+
+    <button type="submit" class="cta contact-submit">Envoyer le message</button>
+  </form>
+</section>
+
+<footer class="footer">
+  <div class="footer-planet"></div>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="brand">
+        <span class="brand-orb-sm"></span>
+        FLAMACH<span class="accent">.</span>DEV
+      </div>
+      <div class="socials">
+        <a href="https://github.com/flamach" target="_blank" rel="noopener" aria-label="GitHub">🐙</a>
+        <a href="https://www.linkedin.com/in/quentin-machado" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span><span class="pulse-dot"></span>Disponible pour de nouveaux projets · 2026</span>
+      <span>© 2026 Quentin Machado</span>
+    </div>
+  </div>
+</footer>
+
+<script type="text/javascript">
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal;
+      let ar = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        d.head.appendChild(d.createElement("script")).src = A;
+        cal.loaded = true;
+      }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") {
+          cal.ns[namespace] = cal.ns[namespace] || api;
+          p(cal.ns[namespace], ar);
+          p(cal, ["initNamespace", namespace]);
+        } else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://www.cal.eu/embed/embed.js", "init");
+
+  Cal("init", { origin: "https://www.cal.eu" });
+
+  Cal("inline", {
+    elementOrSelector: "#cal-booking-embed",
+    calLink: "flamach/30min",
+    layout: "month_view",
+  });
+
+  Cal("ui", {
+    theme: "dark",
+    styles: { branding: { brandColor: "#4cc9f0" } },
+    hideEventTypeDetails: false,
+    layout: "month_view",
+  });
+</script>
+<script src="script.js"></script>
+</body>
+</html>
