@@ -9,9 +9,81 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=9">
+<link rel="stylesheet" href="loading.css?v=1">
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
+
+<div id="boot-loader" role="status" aria-live="polite" aria-label="Chargement du site">
+  <div class="bl-viewport">
+    <div class="bl-stars" id="bl-stars"></div>
+    <div class="bl-planet"></div>
+    <div class="bl-vignette-top"></div>
+  </div>
+  <div class="bl-canopy bl-canopy-l"></div>
+  <div class="bl-canopy bl-canopy-r"></div>
+
+  <div class="bl-console">
+    <div class="bl-console-top">
+      <div class="bl-panel bl-panel-nav">
+        <div class="bl-panel-label">NAVIGATION</div>
+        <div class="bl-radar">
+          <div class="bl-radar-ring bl-radar-ring-1"></div>
+          <div class="bl-radar-ring bl-radar-ring-2"></div>
+          <div class="bl-radar-sweep"></div>
+          <div class="bl-radar-blip"></div>
+        </div>
+        <div class="bl-waveform" id="bl-waveform"></div>
+      </div>
+
+      <div class="bl-screen-bezel">
+        <div class="bl-screen">
+          <div class="bl-screen-tag bl-screen-tag-l">MFD-1</div>
+          <div class="bl-screen-tag bl-screen-tag-r">REV C</div>
+          <div class="bl-boot-lines" id="bl-boot-lines">
+            <div>SYSTEM INIT ......... OK</div>
+            <div>ENGINES ............. OK</div>
+            <div>NAVIGATION .......... OK</div>
+            <div>DATA LINK ........... OK</div>
+          </div>
+          <div class="bl-ring-wrap">
+            <div class="bl-ring" id="bl-ring"></div>
+            <div class="bl-pct" id="bl-pct">0<span>%</span></div>
+          </div>
+          <div class="bl-status" id="bl-status">SYSTEM LOADING</div>
+        </div>
+      </div>
+
+      <div class="bl-panel bl-panel-prop">
+        <div class="bl-panel-label">PROPULSION</div>
+        <div class="bl-gauges" id="bl-gauges"></div>
+        <div class="bl-readouts">
+          <div><span>THR</span><span>98.2%</span></div>
+          <div><span>STATUS</span><span>NOMINAL</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bl-bottom">
+      <div class="bl-annunciators" id="bl-annunciators"></div>
+      <div class="bl-dials">
+        <div class="bl-dial"><div class="bl-dial-face"><div class="bl-dial-needle"></div></div><div class="bl-dial-label">PRESS</div></div>
+        <div class="bl-dial"><div class="bl-dial-face"><div class="bl-dial-needle"></div></div><div class="bl-dial-label">TEMP</div></div>
+      </div>
+      <div class="bl-fuel">
+        <div class="bl-fuel-label"><span>FUEL — LOADING</span><span id="bl-fuel-pct">0%</span></div>
+        <div class="bl-fuel-track"><div class="bl-fuel-fill" id="bl-fuel-fill"></div></div>
+      </div>
+      <div class="bl-telemetry">
+        <div>HDG <span id="bl-hdg">214°</span></div>
+        <div>VEL <span id="bl-vel">11.42</span></div>
+        <div>G <span id="bl-g">1.00</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bl-flash" id="bl-flash"></div>
+</div>
 
 <canvas id="starfield"></canvas>
 <div class="grid-overlay"></div>
@@ -309,5 +381,6 @@
   });
 </script>
 <script src="script.js"></script>
+<script src="loading.js"></script>
 </body>
 </html>
