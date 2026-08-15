@@ -170,18 +170,6 @@ a { color: inherit; }
   position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column;
   align-items: center; justify-content: center; text-align: center; padding: 140px 24px 80px; overflow: hidden;
 }
-.planet-3d {
-  position: absolute; top: 6%; right: 4%; width: min(340px, 34vw); height: min(340px, 34vw);
-  z-index: 0; pointer-events: none; --poster-color: transparent;
-  filter: drop-shadow(0 0 40px var(--accent-faint));
-  animation: floaty calc(9s * var(--speed)) ease-in-out infinite;
-}
-.ship-3d {
-  position: absolute; bottom: 14%; left: 6%; width: min(220px, 26vw); height: min(220px, 26vw);
-  z-index: 0; pointer-events: none;
-  filter: drop-shadow(0 0 30px var(--accent-faint));
-  animation: floaty calc(11s * var(--speed)) ease-in-out infinite reverse;
-}
 .moon {
   position: absolute; bottom: 16%; left: 9%; width: 84px; height: 84px; border-radius: 50%;
   background:
@@ -192,13 +180,6 @@ a { color: inherit; }
   box-shadow: 0 0 24px var(--accent-faint);
   animation: floaty calc(9s * var(--speed)) ease-in-out infinite; z-index: 0;
 }
-.blackhole-3d {
-  position: absolute; top: 4%; right: 3%; left: auto; width: min(192px, 21.6vw); height: min(192px, 21.6vw);
-  z-index: 0; pointer-events: none;
-  filter: drop-shadow(0 0 26px var(--accent-faint));
-  animation: floaty calc(10s * var(--speed)) ease-in-out infinite;
-}
-
 .badge {
   font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px; color: var(--accent-soft);
   text-transform: uppercase; padding: 8px 18px; border: 1px solid var(--accent-faint);

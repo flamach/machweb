@@ -1,10 +1,10 @@
 # flamach.dev
 
-Site vitrine / portfolio de Quentin Machado, développeur web full-stack — thème spatial avec modèles 3D interactifs, prise de rendez-vous intégrée et formulaire de contact.
+Site vitrine / portfolio de Quentin Machado, développeur web full-stack — thème spatial, prise de rendez-vous intégrée et formulaire de contact.
 
 ## Aperçu
 
-- Hero animé avec fusée et lune en orbite (3D)
+- Hero animé avec écran de chargement façon cockpit
 - Section À propos avec jauges de compétences animées
 - Grille de projets récents
 - Prise de rendez-vous en direct via Cal.eu
@@ -13,7 +13,6 @@ Site vitrine / portfolio de Quentin Machado, développeur web full-stack — th�
 ## Stack
 
 - HTML / CSS / JavaScript vanilla
-- [`<model-viewer>`](https://modelviewer.dev/) pour l'affichage des modèles 3D (`.glb`)
 - Cal.eu pour la réservation de créneaux
 - FormSubmit pour l'envoi du formulaire de contact
 
@@ -28,7 +27,7 @@ Site vitrine / portfolio de Quentin Machado, développeur web full-stack — th�
     ├── i18n.js
     ├── loading.js
     ├── loading.css
-    └── input/       # modèles 3D (.glb) et favicon
+    └── input/       # favicon
 ```
 
 ## Lancer le site en local

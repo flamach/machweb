@@ -4,7 +4,6 @@
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MIN_DISPLAY = reduced ? 0.4 : 3.0;
-  const MAX_WAIT = 12; // safety: never block launch forever
   const RING_T = reduced ? 0 : 1.05;
   const READY_HOLD = reduced ? 0.05 : 0.35;
 
@@ -83,28 +82,6 @@
     nav: $('.bl-panel-nav'),
     bottom: $('.bl-bottom'),
   };
-
-  // ---- real asset readiness (gates when the loader is allowed to exit) ----
-  const targets = [
-    { el: document.querySelector('.planet-3d'), done: false },
-    { el: document.querySelector('.ship-3d'), done: false },
-  ].filter((t) => t.el);
-
-  if (!targets.length) {
-    // nothing to wait for — reveal almost immediately
-    targets.push({ el: null, done: true });
-  }
-
-  targets.forEach((tg) => {
-    if (!tg.el) return;
-    if (tg.el.loaded) { tg.done = true; return; }
-    tg.el.addEventListener('load', () => { tg.done = true; });
-    tg.el.addEventListener('error', () => { tg.done = true; });
-  });
-
-  function allLoaded() {
-    return targets.every((tg) => tg.done);
-  }
 
   // ---- fake ramp (keeps the UI feeling alive before real progress events land) ----
   function lerp(input, output, t) {
@@ -200,7 +177,7 @@
     els.vel.textContent = (11.42 + 0.3 * Math.sin(t * 2)).toFixed(2);
     els.g.textContent = (1.0 + 0.02 * Math.sin(t * 3)).toFixed(2);
 
-    const canFinish = (allLoaded() && t >= MIN_DISPLAY) || t >= MAX_WAIT;
+    const canFinish = t >= MIN_DISPLAY;
     if (!ready && canFinish) {
       ready = true;
       els.status.textContent = '■ LAUNCH';
