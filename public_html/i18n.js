@@ -2,7 +2,6 @@
   const fr = {
     'page.title': 'Quentin Machado — Développeur Web Full-Stack',
     'page.description': 'Quentin Machado, développeur web full-stack. Interfaces modernes, précises et performantes.',
-    'boot.ariaLabel': 'Chargement du site',
     'nav.about': 'À propos',
     'nav.projects': 'Projets',
     'nav.booking': 'Réserver',

@@ -1,6 +1,6 @@
 (() => {
   const SPEED = 1.25;
-  const STAR_DENSITY = 1;
+  const STAR_DENSITY = 0.25;
 
   // Starfield
   const canvas = document.getElementById('starfield');
@@ -53,6 +53,24 @@
     mobileMenu.classList.remove('open');
     menuToggle.textContent = '☰';
   }));
+
+  // Nav glass droplet — glides between links on hover
+  const navLinksEl = document.getElementById('nav-links');
+  const navGlass = document.getElementById('nav-glass');
+  if (navLinksEl && navGlass && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    navLinksEl.querySelectorAll('a').forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        const linkRect = link.getBoundingClientRect();
+        const parentRect = navLinksEl.getBoundingClientRect();
+        navGlass.style.left = (linkRect.left - parentRect.left) + 'px';
+        navGlass.style.width = linkRect.width + 'px';
+        navGlass.classList.add('visible');
+      });
+    });
+    navLinksEl.addEventListener('mouseleave', () => {
+      navGlass.classList.remove('visible');
+    });
+  }
 
   // Scroll spy
   const sectionIds = ['hero', 'about', 'projects', 'booking', 'contact'];

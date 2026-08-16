@@ -4,7 +4,7 @@ Site vitrine / portfolio de Quentin Machado, développeur web full-stack — th�
 
 ## Aperçu
 
-- Hero animé avec écran de chargement façon cockpit
+- Hero animé
 - Section À propos avec jauges de compétences animées
 - Grille de projets récents
 - Prise de rendez-vous en direct via Cal.eu
@@ -25,8 +25,6 @@ Site vitrine / portfolio de Quentin Machado, développeur web full-stack — th�
     ├── style.css
     ├── script.js
     ├── i18n.js
-    ├── loading.js
-    ├── loading.css
     └── input/       # favicon
 ```
 
