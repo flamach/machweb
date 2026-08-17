@@ -27,7 +27,7 @@
     'projects.statusOnline': '● En ligne',
     'projects.auvieuxsingeDesc': "Site du Vieux Singe, brasserie et restaurant de quartier depuis 1966 : carte, soirées karaoké et blind test, et cuisine de saison à La Table du Vieux Singe.",
     'projects.lemeandreDesc': 'Site vitrine pour un domaine familial : restaurant, gîtes et spa. Bilingue FR/EN, responsive, avec écran de chargement animé.',
-    'projects.poolmachDesc': "Site vitrine pour un constructeur de piscines sur mesure : animation hero pilotée par le scroll, du jardin nu à la piscine remplie d'eau.",
+    'projects.poolDesc': "Site vitrine pour un constructeur de piscines sur mesure : animation hero pilotée par le scroll, du jardin nu à la piscine remplie d'eau.",
     'projects.viewCode': 'Voir le code ↗',
     'projects.viewDemo': 'Voir la démo ↗',
     'booking.eyebrow': 'Rendez-vous',
