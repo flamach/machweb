@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAME — Piscines &amp; bassins d'exception</title>
+<meta name="description" content="LAME conçoit, construit et installe des piscines sur mesure : à débordement, coque, miroir. Un métier de pierre et d'eau, du terrassement à la mise en eau.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<header class="site-nav" id="siteNav">
+  <div class="site-nav__inner">
+    <a href="#accueil" class="brand">LAME</a>
+    <nav class="site-nav__links" aria-label="Navigation principale">
+      <a href="#prestations">Prestations</a>
+      <a href="#etapes">Le métier</a>
+      <a href="#matieres">Matières</a>
+      <a href="#avis">Avis</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn--ghost btn--sm">Demander un devis</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Navigation mobile">
+    <a href="#prestations">Prestations</a>
+    <a href="#etapes">Le métier</a>
+    <a href="#matieres">Matières</a>
+    <a href="#avis">Avis</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="contenu">
+
+  <!-- ============ HERO — scroll-scrubbed animation ============ -->
+  <section class="hero-scroll" id="accueil" aria-label="Présentation LAME">
+    <div class="hero-scroll__sticky">
+      <canvas id="heroCanvas" role="img" aria-label="Un jardin se transforme progressivement en piscine remplie d'eau, du terrassement à la mise en eau."></canvas>
+
+      <div class="hero-loader" id="heroLoader">
+        <span class="hero-loader__mark">LAME</span>
+        <div class="hero-loader__bar"><span id="heroLoaderFill"></span></div>
+        <span class="hero-loader__pct" id="heroLoaderPct">0%</span>
+      </div>
+
+      <div class="hero-scrim" aria-hidden="true"></div>
+
+      <div class="hero-copy">
+        <p class="hero-copy__eyebrow">Piscines &amp; bassins sur mesure</p>
+
+        <div class="hero-copy__stack">
+          <div class="hero-copy__phase is-active" data-phase="0">
+            <h1>Ici,<br>un jardin.</h1>
+            <p>Chaque piscine LAME commence par un terrain vierge et un tracé pensé pour lui.</p>
+          </div>
+
+          <div class="hero-copy__phase" data-phase="1">
+            <h1>Puis,<br>une structure.</h1>
+            <p>Terrassement, coque ou génie civil, réseaux techniques : le geste s'efface derrière la précision du métier.</p>
+          </div>
+
+          <div class="hero-copy__phase" data-phase="2">
+            <h1>Enfin,<br>l'eau.</h1>
+            <p>Une piscine pensée pour durer, née pour être vécue de la première mise en eau aux étés qui suivent.</p>
+            <a href="#contact" class="btn btn--primary">Demander un devis</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scrollcue" id="heroScrollcue" aria-hidden="true">
+        <span></span>
+        Faites défiler
+      </div>
+    </div>
+
+    <noscript>
+      <img src="assets/frames/ezgif-frame-100.jpg" alt="Piscine à débordement terminée, remplie d'eau, entourée d'un jardin aménagé." class="hero-noscript-img">
+    </noscript>
+  </section>
+
+  <!-- ============ MANIFESTO ============ -->
+  <section class="manifesto">
+    <div class="wrap">
+      <p class="section-label">00 — La maison</p>
+      <p class="manifesto__text">
+        LAME dessine des bassins qui n'ont pas l'air construits... plutôt révélés.
+        Un métier d'ingénieurs et de tailleurs de pierre, où chaque détail
+        (une margelle, un débordement, une teinte de liner) se décide en fonction
+        d'un seul critère&nbsp;: la lumière qui viendra s'y poser.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ PRESTATIONS ============ -->
+  <section class="prestations" id="prestations">
+    <div class="wrap">
+      <p class="section-label">01 — Prestations</p>
+      <h2 class="section-title">Quatre manières<br>d'habiter l'eau.</h2>
+
+      <div class="collection-grid">
+        <article class="collection-card reveal" style="--swatch-a:#1f6f7a; --swatch-b:#0e2f34;">
+          <div class="collection-card__swatch" aria-hidden="true"></div>
+          <span class="collection-card__num">01</span>
+          <h3>Piscine à débordement</h3>
+          <p>La ligne d'eau se prolonge à l'infini, cadrée sur le paysage. Un bassin technique, pensé pour disparaître visuellement dans son terrain.</p>
+        </article>
+
+        <article class="collection-card reveal" style="--swatch-a:#6fb8c4; --swatch-b:#20575f;">
+          <div class="collection-card__swatch" aria-hidden="true"></div>
+          <span class="collection-card__num">02</span>
+          <h3>Piscine coque</h3>
+          <p>Une seule pièce composite, posée et mise en eau en quelques jours. La rapidité du chantier, sans concession sur la finition.</p>
+        </article>
+
+        <article class="collection-card reveal" style="--swatch-a:#3a4a45; --swatch-b:#0e1b1a;">
+          <div class="collection-card__swatch" aria-hidden="true"></div>
+          <span class="collection-card__num">03</span>
+          <h3>Piscine miroir</h3>
+          <p>Un bassin affleurant au sol, silencieux, sans margelle apparente. Il redouble la lumière du jardin plutôt que de l'interrompre.</p>
+        </article>
+
+        <article class="collection-card reveal" style="--swatch-a:#b68a4e; --swatch-b:#5c4322;">
+          <div class="collection-card__swatch" aria-hidden="true"></div>
+          <span class="collection-card__num">04</span>
+          <h3>Spa &amp; nage à contre-courant</h3>
+          <p>Pour les terrains contraints&nbsp;: nager sur place, se détendre à l'année, dans un volume pensé pour l'usage quotidien.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LE MÉTIER — étapes (réutilise les frames) ============ -->
+  <section class="etapes" id="etapes">
+    <div class="wrap">
+      <p class="section-label section-label--light">02 — Le métier</p>
+      <h2 class="section-title section-title--light">Un chantier,<br>trois vérités.</h2>
+    </div>
+
+    <div class="etapes-strip">
+      <figure class="etapes-strip__item reveal">
+        <img src="img/terrassement_pool.png" alt="Terrain en cours de terrassement pour l'implantation d'une piscine." loading="lazy" width="1536" height="2720">
+        <figcaption>
+          <span>01</span>
+          <h3>Terrassement</h3>
+          <p>Étude de sol, implantation, réseaux enterrés. Tout ce qui ne se voit plus une fois le jardin refermé.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="etapes-strip__item reveal">
+        <img src="img/structure_pool.png" alt="Structure et coque de piscine en cours d'installation dans la fouille." loading="lazy" width="1536" height="2720">
+        <figcaption>
+          <span>02</span>
+          <h3>Structure</h3>
+          <p>Coque, parois ou génie civil, étanchéité, margelles. La partie la plus longue et la moins photogénique.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="etapes-strip__item reveal">
+        <img src="img/mise_en_eau_pool.png" alt="Piscine remplie d'eau, terminée, avec son jardin aménagé autour." loading="lazy" width="1536" height="2720">
+        <figcaption>
+          <span>03</span>
+          <h3>Mise en eau</h3>
+          <p>Le moment que tout le monde attend. Traitement, équilibrage, et la première baignade généralement le jour-même.</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ MATIÈRES ============ -->
+  <section class="matieres" id="matieres">
+    <div class="wrap">
+      <p class="section-label">03 — Matières</p>
+      <h2 class="section-title">Ce qui se touche<br>compte autant que ce qui se voit.</h2>
+
+      <div class="matiere-grid">
+        <div class="matiere reveal">
+          <div class="matiere__sample matiere__sample--pierre" aria-hidden="true"></div>
+          <h3>Margelles pierre naturelle</h3>
+          <p>Calcaire et travertin, adoucis en bord de bassin, thermiquement stables sous le soleil.</p>
+        </div>
+        <div class="matiere reveal">
+          <div class="matiere__sample matiere__sample--liner" aria-hidden="true"></div>
+          <h3>Liner armé teinté</h3>
+          <p>Une dizaine de teintes, du gris anthracite au bleu profond, choisies pour leur reflet une fois l'eau posée.</p>
+        </div>
+        <div class="matiere reveal">
+          <div class="matiere__sample matiere__sample--mosaique" aria-hidden="true"></div>
+          <h3>Mosaïque &amp; carrelage</h3>
+          <p>Pâte de verre et grès cérame, posés en ligne d'eau pour souligner le contour du bassin.</p>
+        </div>
+        <div class="matiere reveal">
+          <div class="matiere__sample matiere__sample--bois" aria-hidden="true"></div>
+          <h3>Plage bois &amp; composite</h3>
+          <p>Lames grand format, classe 4, pensées pour rester nu-pieds toute la saison.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AVIS ============ -->
+  <section class="avis" id="avis">
+    <div class="wrap">
+      <p class="section-label">04 — Avis</p>
+      <h2 class="section-title">Ce qu'on en dit,<br>une fois l'eau posée.</h2>
+
+      <div class="avis-grid">
+        <blockquote class="avis-card reveal">
+          <div class="avis-card__stars" aria-hidden="true">★★★★★</div>
+          <p>« Un chantier propre, tenu dans les délais annoncés ce qui n'était pas gagné vu la complexité du terrain en pente. Le résultat dépasse ce qu'on avait imaginé. »</p>
+          <footer>M.&nbsp;&amp;&nbsp;L. Bertrand — Aix-en-Provence</footer>
+        </blockquote>
+        <blockquote class="avis-card reveal">
+          <div class="avis-card__stars" aria-hidden="true">★★★★★</div>
+          <p>« On voulait un bassin miroir sans être sûrs que ce soit réaliste sur notre terrain. L'équipe a été honnête sur les contraintes avant de s'engager, et a tenu parole. »</p>
+          <footer>S. Cordier — Uzès</footer>
+        </blockquote>
+        <blockquote class="avis-card reveal">
+          <div class="avis-card__stars" aria-hidden="true">★★★★★</div>
+          <p>« Piscine coque posée en quatre jours comme promis. Le suivi après mise en eau (réglages, entretien) est aussi sérieux que le chantier lui-même. »</p>
+          <footer>F. Ranaivo — Toulon</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT / DEVIS ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap contact__wrap">
+      <div class="contact__intro">
+        <p class="section-label section-label--light">05 — Contact</p>
+        <h2 class="section-title section-title--light">Parlons de<br>votre terrain.</h2>
+        <p class="contact__text">Un premier échange, sans engagement, pour évaluer la faisabilité de votre projet même si vous n'avez encore que des questions.</p>
+
+        <ul class="contact__details">
+          <li>
+            <span>Téléphone</span>
+            <a href="tel:+33400000000">04 00 00 00 00</a>
+          </li>
+          <li>
+            <span>Email</span>
+            <a href="mailto:contact@lame-piscines.fr">contact@lame-piscines.fr</a>
+          </li>
+          <li>
+            <span>Atelier</span>
+            <a href="#" onclick="return false;">12 route des Micocouliers, 13100 Aix-en-Provence</a>
+          </li>
+          <li>
+            <span>Horaires</span>
+            <a href="#" onclick="return false;">Lun–Ven, 8h30–18h &middot; Sam sur rendez-vous</a>
+          </li>
+        </ul>
+      </div>
+
+      <form class="devis-form" id="devisForm" novalidate>
+        <div class="devis-form__row">
+          <label for="nom">Nom &amp; prénom</label>
+          <input type="text" id="nom" name="nom" autocomplete="name" required>
+        </div>
+
+        <div class="devis-form__row devis-form__row--split">
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div>
+            <label for="tel">Téléphone</label>
+            <input type="tel" id="tel" name="tel" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="devis-form__row">
+          <label for="projet">Type de projet</label>
+          <select id="projet" name="projet" required>
+            <option value="" disabled selected>Choisir un type de bassin</option>
+            <option value="debordement">Piscine à débordement</option>
+            <option value="coque">Piscine coque</option>
+            <option value="miroir">Piscine miroir</option>
+            <option value="spa">Spa &amp; nage à contre-courant</option>
+            <option value="autre">Je ne sais pas encore</option>
+          </select>
+        </div>
+
+        <div class="devis-form__row">
+          <label for="message">Votre projet en quelques mots</label>
+          <textarea id="message" name="message" rows="4" placeholder="Surface disponible, délai souhaité, contraintes du terrain…"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">Envoyer ma demande</button>
+        <p class="devis-form__note">Réponse sous 48h ouvrées. Aucune donnée transmise à des tiers.</p>
+      </form>
+
+      <p class="devis-form__success" id="devisSuccess" role="status" hidden>
+        Merci, votre demande est enregistrée. Nous revenons vers vous sous 48h.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <span class="brand brand--footer">LAME</span>
+    <p>&copy; 2026 LAME Piscines. Tous droits réservés.</p>
+    <nav aria-label="Liens légaux">
+      <a href="#" onclick="return false;">Mentions légales</a>
+      <a href="#" onclick="return false;">Confidentialité</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="js/hero.js" defer></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
