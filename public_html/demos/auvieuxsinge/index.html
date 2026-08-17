@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.title">Au Vieux Singe — Brasserie &amp; Restaurant depuis 1966</title>
+<meta name="description" data-i18n="meta.description" data-i18n-attr="content" content="Au Vieux Singe : brasserie et restaurant de quartier depuis 1966. Bières pression, planches, burgers, soirées karaoké et blind test, et La Table du Vieux Singe pour une cuisine de saison.">
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@600;700&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/loading.css">
+</head>
+<body>
+
+<div id="loading-screen" aria-hidden="true">
+  <div class="loading-panel loading-panel-left">
+    <div class="loading-anchor loading-anchor-left">
+      <div class="loading-glow"></div>
+      <img class="loading-logo" src="images/logo.png" alt="Au Vieux Singe">
+    </div>
+  </div>
+  <div class="loading-panel loading-panel-right">
+    <div class="loading-anchor loading-anchor-right">
+      <div class="loading-glow"></div>
+      <img class="loading-logo" src="images/logo.png" alt="">
+    </div>
+  </div>
+  <div class="loading-seam"></div>
+</div>
+
+<header class="navbar">
+  <div class="navbar-inner">
+    <button class="brand" data-go="brasserie" data-i18n-attr="aria-label" data-i18n="nav.home.aria" aria-label="Accueil Au Vieux Singe">
+      <img src="images/logo.png" alt="Au Vieux Singe">
+      <span class="brand-text">
+        <span class="brand-name">AU VIEUX SINGE</span>
+        <span class="brand-since">since 1966</span>
+      </span>
+    </button>
+
+    <nav class="nav-tabs">
+      <button class="nav-tab active-brasserie" data-go="brasserie" data-tab="brasserie">
+        <span class="tab-full">Le Vieux Singe</span><span class="tab-short" data-i18n="nav.tab.brasserie.short">Brasserie</span>
+      </button>
+      <button class="nav-tab" data-go="table" data-tab="table">
+        <span class="tab-full">La Table du Vieux Singe</span><span class="tab-short" data-i18n="nav.tab.table.short">La Table</span>
+      </button>
+    </nav>
+
+    <button class="btn-lang" id="btn-lang" type="button" data-i18n-attr="aria-label" data-i18n="nav.lang.toggle.aria" aria-label="Traduire le site en anglais">
+      <span data-i18n="nav.lang.toggle">EN</span>
+    </button>
+    <a class="btn-reserve" href="https://www.thefork.fr" target="_blank" rel="noopener" data-i18n="nav.reserve">Réserver</a>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════ PAGE BRASSERIE ══════════════════════════════════════ -->
+<main id="page-brasserie" class="page active">
+
+  <section class="hero-affiche">
+    <div class="hero-affiche-inner">
+      <img src="images/logo.png" alt="Logo Au Vieux Singe">
+      <h1 class="hero-title">AU VIEUX SINGE</h1>
+      <div class="hero-bandeau"><span data-i18n="hero.bandeau">BRASSERIE · AMBIANCE · BONNE HUMEUR</span></div>
+      <p class="hero-tagline" data-i18n="hero.tagline">Bières pression, planches à partager et soirées qui déraillent — depuis 1966.</p>
+      <div class="hero-actions">
+        <a href="#bieres" class="btn-gold" data-scroll="bieres" data-i18n="hero.btn.beers">Nos pressions</a>
+        <a href="#carte" class="btn-outline" data-scroll="carte" data-i18n="hero.btn.menu">La carte</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="bieres" class="section-bieres">
+    <div class="section-inner">
+      <div class="section-heading" data-reveal>
+        <h2 data-i18n="beers.heading">Les Bières Pression</h2>
+        <span data-i18n="beers.subheading">tirées avec amour, servies bien fraîches</span>
+      </div>
+      <div class="section-underline"></div>
+      <div class="beers-grid" id="beers-grid"></div>
+      <p class="beers-note" data-reveal data-i18n="beers.note">+ une pression invitée qui change chaque mois — demandez au bar !</p>
+    </div>
+  </section>
+
+  <section id="carte" class="section-carte">
+    <div class="section-inner">
+      <div class="section-heading" data-reveal>
+        <h2 data-i18n="carte.heading">La Carte</h2>
+        <span data-i18n="carte.subheading">à picorer ou à dévorer</span>
+      </div>
+      <div class="section-underline"></div>
+      <div class="cat-tabs" id="cat-tabs"></div>
+      <div class="dishes-grid" id="dishes-grid"></div>
+    </div>
+  </section>
+
+  <section id="evenements" class="section-events">
+    <span class="events-eyebrow" data-reveal data-i18n="events.eyebrow">Toutes les semaines au Vieux Singe</span>
+    <h2 data-reveal data-i18n="events.heading">Les Soirées</h2>
+    <div class="events-grid" id="events-grid"></div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col" data-reveal>
+        <img src="images/logo.png" alt="Au Vieux Singe">
+        <p data-i18n="footer.tagline">Brasserie &amp; restaurant de quartier depuis 1966. Bières pression, cuisine généreuse et bonne humeur garantie.</p>
+      </div>
+      <div class="footer-col gold" data-reveal style="--reveal-delay:80ms">
+        <h4 data-i18n="footer.hours">Horaires</h4>
+        <div class="hours-row" id="hours-row-brasserie"></div>
+        <p class="footer-note" data-i18n="footer.hours.note">Cuisine ouverte 12h – 14h30 et 19h – 22h30.</p>
+      </div>
+      <div class="footer-col gold" data-reveal style="--reveal-delay:160ms">
+        <h4 data-i18n="footer.contact">Contact &amp; accès</h4>
+        <div class="contact-block">
+          <span>8 Rue Monsigny<br>62200 Boulogne-sur-Mer</span>
+          <a href="tel:+33678603210">06 78 60 32 10</a>
+          <a href="mailto:contact@auvieuxsinge.fr">contact@auvieuxsinge.fr</a>
+        </div>
+        <div class="map-embed">
+          <iframe src="https://www.google.com/maps?q=8%20Rue%20Monsigny%2C%2062200%20Boulogne-sur-Mer&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" data-i18n-attr="title" data-i18n="footer.map.title" title="Carte : localisation Au Vieux Singe"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom gold">
+      <span data-i18n="footer.bottom.copy">© 2026 Au Vieux Singe — Brasserie &amp; Restaurant</span>
+      <span class="signoff">Good times, good vibes.</span>
+    </div>
+  </footer>
+</main>
+
+<!-- ══════════════════════════════════════ PAGE LA TABLE ══════════════════════════════════════ -->
+<main id="page-table" class="page">
+
+  <div class="hedge"></div>
+
+  <section class="hero-table">
+    <div class="hero-table-inner">
+      <div class="hero-table-eyebrow">— 🍴 —</div>
+      <h1>LA TABLE <span class="du">du</span> VIEUX SINGE</h1>
+      <p class="hero-table-tagline" data-i18n="table.hero.tagline">Une cuisine de saison, généreuse et un brin sauvage.</p>
+      <p class="hero-table-desc" data-i18n="table.hero.desc">Côté restaurant, le Vieux Singe se met sur son trente-et-un : produits frais, assiettes travaillées et la même chaleur qu'au comptoir.</p>
+      <a href="https://www.thefork.fr" target="_blank" rel="noopener" class="btn-green" data-i18n="table.hero.btn">Réserver une table</a>
+    </div>
+  </section>
+
+  <section class="photos-table">
+    <div class="photos-grid">
+      <div class="photo-slot" data-reveal><span data-i18n="table.photo.room">Photo de la salle (mur végétal)</span></div>
+      <div class="photo-slot" data-reveal style="--reveal-delay:80ms"><span data-i18n="table.photo.dish">Photo d'un plat</span></div>
+      <div class="photo-slot" data-reveal style="--reveal-delay:160ms"><span data-i18n="table.photo.dessert">Photo d'un dessert</span></div>
+    </div>
+  </section>
+
+  <section class="section-menu-table">
+    <div class="section-inner">
+      <div class="menu-table-heading" data-reveal>
+        <span data-i18n="table.menu.eyebrow">de l'entrée au dessert</span>
+        <h2 data-i18n="table.menu.heading">Le Menu</h2>
+      </div>
+
+      <div id="table-menu-courses"></div>
+
+      <div class="formule-box" data-reveal>
+        <div class="formule-text">
+          <h3 data-i18n="table.formule.title">Menu du Vieux Singe</h3>
+          <p data-i18n="table.formule.desc">Entrée + plat + dessert au choix, café compris. Le midi en semaine, formule entrée + plat ou plat + dessert.</p>
+        </div>
+        <div class="formule-prices">
+          <div>
+            <div class="amount">34 €</div>
+            <div class="label" data-i18n="table.formule.label3">3 plats</div>
+          </div>
+          <div>
+            <div class="amount">22 €</div>
+            <div class="label" data-i18n="table.formule.label2">Midi · 2 plats</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col" data-reveal>
+        <img src="images/logo.png" alt="Au Vieux Singe">
+        <p data-i18n="footer.tagline">Brasserie &amp; restaurant de quartier depuis 1966. Bières pression, cuisine généreuse et bonne humeur garantie.</p>
+      </div>
+      <div class="footer-col green" data-reveal style="--reveal-delay:80ms">
+        <h4 data-i18n="footer.hours">Horaires</h4>
+        <div class="hours-row" id="hours-row-table"></div>
+        <p class="footer-note" data-i18n="footer.hours.note">Cuisine ouverte 12h – 14h30 et 19h – 22h30.</p>
+      </div>
+      <div class="footer-col green" data-reveal style="--reveal-delay:160ms">
+        <h4 data-i18n="footer.contact">Contact &amp; accès</h4>
+        <div class="contact-block">
+          <span>8 Rue Monsigny<br>62200 Boulogne-sur-Mer</span>
+          <a href="tel:+33678603210">06 78 60 32 10</a>
+          <a href="mailto:contact@auvieuxsinge.fr">contact@auvieuxsinge.fr</a>
+        </div>
+        <div class="map-embed">
+          <iframe src="https://www.google.com/maps?q=8%20Rue%20Monsigny%2C%2062200%20Boulogne-sur-Mer&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" data-i18n-attr="title" data-i18n="footer.map.title" title="Carte : localisation Au Vieux Singe"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom green">
+      <span data-i18n="footer.bottom.copy">© 2026 Au Vieux Singe — Brasserie &amp; Restaurant</span>
+      <span class="signoff">Good times, good vibes.</span>
+    </div>
+  </footer>
+
+  <div class="hedge hedge-bottom"></div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/script.js"></script>
+<script src="js/loading.js"></script>
+</body>
+</html>

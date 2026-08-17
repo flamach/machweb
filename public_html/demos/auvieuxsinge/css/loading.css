@@ -1,0 +1,99 @@
+/* Écran de chargement — logo qui s'ouvre en deux pour révéler le site */
+
+:root { --loading-logo-size: 260px; }
+
+body.loading-lock { overflow: hidden; height: 100vh; }
+
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.loading-panel {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  background: var(--bg);
+  transition: transform 0.9s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.loading-panel-left {
+  left: 0;
+  box-shadow: inset -40px 0 80px rgba(0,0,0,.25);
+}
+
+.loading-panel-right {
+  right: 0;
+  box-shadow: inset 40px 0 80px rgba(0,0,0,.25);
+}
+
+#loading-screen.opening .loading-panel-left { transform: translateX(-101%); }
+#loading-screen.opening .loading-panel-right { transform: translateX(101%); }
+
+.loading-anchor {
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 0;
+}
+
+.loading-anchor-left { left: 100%; }
+.loading-anchor-right { left: 0; }
+
+.loading-glow {
+  position: absolute;
+  width: calc(var(--loading-logo-size) * 1.2);
+  height: calc(var(--loading-logo-size) * 1.2);
+  left: calc(var(--loading-logo-size) * -0.6);
+  top: calc(var(--loading-logo-size) * -0.6);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,164,65,.5) 0%, rgba(217,164,65,0) 70%);
+  animation: vsLoadingGlow 2.4s ease-in-out infinite;
+}
+
+.loading-logo {
+  position: absolute;
+  width: var(--loading-logo-size);
+  height: var(--loading-logo-size);
+  left: calc(var(--loading-logo-size) / -2);
+  top: calc(var(--loading-logo-size) / -2);
+  object-fit: contain;
+  animation: vsLoadingSpin 2.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.loading-seam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  margin-left: -1px;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+}
+
+#loading-screen.seam .loading-seam { opacity: 1; }
+
+@keyframes vsLoadingSpin {
+  from { transform: rotate(0deg) scale(.95); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes vsLoadingGlow {
+  0%, 100% { opacity: .35; }
+  50% { opacity: .6; }
+}
+
+@media (max-width: 600px) {
+  :root { --loading-logo-size: 160px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #loading-screen { display: none; }
+}

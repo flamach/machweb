@@ -374,6 +374,8 @@ a { color: inherit; }
   font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent);
   border-top: 1px solid var(--hairline-color); padding-top: 18px; margin-top: auto;
 }
+.project-links { display: flex; gap: 20px; border-top: 1px solid var(--hairline-color); padding-top: 18px; margin-top: auto; }
+.project-links .project-link { border-top: none; padding-top: 0; margin-top: 0; }
 
 /* Booking */
 .booking { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 100px 24px; scroll-margin-top: 0px; }
