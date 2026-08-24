@@ -133,13 +133,6 @@ a { color: inherit; }
    script.js) to switch between them. Add a new .hero-scene block to extend to scene 3+. */
 .hero-scenes {
   position: absolute; inset: 0; z-index: 0;
-  /* Cinematic grade applied once to the whole stacked scene (not per-image) — tune here. */
-  filter: saturate(var(--hero-grade-saturate, 0.85)) contrast(var(--hero-grade-contrast, 1.05));
-}
-/* Scene 0 (volcano) has no light backdrop like scene 2's fallback gray — its night sky + black
-   rock read much darker than the other scenes under the same grade, so it gets its own lift. */
-.hero-scenes:has(.hero-scene[data-scene="0"].is-active) {
-  filter: saturate(var(--hero-grade-saturate, 0.85)) contrast(var(--hero-grade-contrast, 1.05)) brightness(var(--hero-scene1-lift, 1.2));
 }
 /* Scene 2's sky mask fades its bottom edge to transparent for as long as it's active (see
    .hero-sky-mask-enter below) — scene 0/1 never notice because their volcano/moon art opaquely
@@ -174,6 +167,20 @@ a { color: inherit; }
   transition-timing-function: var(--scene-enter-ease);
 }
 .hero-layer { will-change: transform; }
+
+/* Canvas-texture wrapping — the element carrying .hero-layer (and its data-depth/mouse-parallax)
+   must be the direct parent of both the image and its <canvas data-texture> sibling, so the JS
+   parallax transform moves them together as one unit (see canvas-texture.js). Two layout modes:
+   .hero-tex-wrap for layers whose image is itself position:absolute/inset:0 (sky, volcano — the
+   wrapper takes over that inset:0 box); .hero-tex-wrap-flow for layers sized by their image's
+   natural flow (moon — width:100%/height:auto), where the wrapper must stay in normal flow so it
+   still auto-sizes to the image instead of collapsing. */
+.hero-tex-wrap { position: absolute; inset: 0; }
+.hero-tex-wrap-flow { position: relative; width: 100%; }
+.hero-texture-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  mix-blend-mode: soft-light; opacity: 0.75; pointer-events: none; display: block;
+}
 
 /* Sky — shared by both scenes: whichever sky is entering slides down from the top, whichever is
    leaving slides down further to the bottom, so the two skies read as one continuous curtain.
@@ -235,11 +242,16 @@ a { color: inherit; }
   left: 49%; bottom: 78%; width: 40%; margin-left: -20%;
   transform: translateY(100vh); transition-delay: 0.15s;
 }
-.hero-layer--smoke { display: block; width: 100%; }
+.hero-layer--smoke { position: relative; display: block; width: 100%; }
 .hero-smoke-img {
   display: block; width: 100%; height: auto; transform-origin: 50% 100%;
   animation: smokeDrift 9s ease-in-out infinite;
 }
+/* The texture canvas is masked to a static snapshot of its image's silhouette (see
+   canvas-texture.js) — it doesn't repaint every frame, so an image with its own idle-bob
+   animation would drift away from its mask over time (the "trail" left behind). Giving the
+   canvas the exact same animation/transform-origin keeps the two moving as one rigid unit. */
+.hero-smoke-img + .hero-texture-canvas { animation: smokeDrift 9s ease-in-out infinite; transform-origin: 50% 100%; }
 @keyframes smokeDrift {
   0%, 100% { transform: translateY(0) scale(1); opacity: 0.85; }
   50% { transform: translateY(-18px) scale(1.03); opacity: 1; }
@@ -269,6 +281,11 @@ a { color: inherit; }
 .hero-slide--butterfly .hero-float-img {
   animation-duration: calc(3s * var(--speed)); animation-delay: 0.4s;
 }
+/* Same fix as smoke above, for every .hero-float-img user (astronaut, butterfly, rock). */
+.hero-float-img + .hero-texture-canvas { animation: floaty calc(3.6s * var(--speed)) ease-in-out infinite; }
+.hero-slide--butterfly .hero-float-img + .hero-texture-canvas {
+  animation-duration: calc(3s * var(--speed)); animation-delay: 0.4s;
+}
 .hero-scene2-astronaut-img {
   background-image: url('input/animations/anim_2/astronaut.png');
   background-size: 173.5% 106.3%; background-position: 43.3% 51.3%;
@@ -288,40 +305,8 @@ a { color: inherit; }
 }
 .hero-scene3-rock-img { display: block; object-fit: contain; }
 
-/* Scene 3 — desert with scattered rocks */
-/* Scene 3 is the LAST scene — there's no scene 4 below it to blend into, so unlike the other
-   skies its box doesn't need the bottom half of SKY_OVERLAP (it was clipping ~12vh of real
-   ground/horizon out of view for no benefit) and its bottom-edge fade mask (which the other
-   skies keep permanently while active, see the scene-2 fallback-background comment above) has
-   nothing to blend with either — both just hid the ground. Disabled for this one sky only. */
-.hero-scene[data-scene="3"] .hero-slide--sky { bottom: 0; }
-.hero-scene4-sky {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom;
-  mask-image: none; -webkit-mask-image: none;
-}
-.hero-rock-img { display: block; object-fit: contain; }
-.hero-slide--rocher1 { left: -4%; bottom: 0; width: 24%; aspect-ratio: 1024 / 1024; transform: translateY(100vh); transition-delay: 0.15s; }
-.hero-slide--rocher2 { right: -10%; top: -8%; width: 30%; aspect-ratio: 1024 / 1024; transform: translateY(100vh); transition-delay: 0.2s; }
-.hero-slide--rocher3 { right: 4%; bottom: 8%; width: 8%; aspect-ratio: 1024 / 917; transform: translateY(100vh); transition-delay: 0.25s; }
-/* Cloud band — second plan, full width, its own transparent top fade (built into the PNG) means
-   the box's bottom offset alone controls how high up the visible cloud mass reads (~2/3-3/4 up
-   the screen per request); the box itself is much taller than that (mostly transparent). */
-.hero-slide--clouds4 { left: 0; right: 0; bottom: 66%; width: 100%; aspect-ratio: 8000 / 2248; transform: translateY(100vh); transition-delay: 0.05s; }
-.hero-clouds4-img { display: block; width: 100%; height: 100%; object-fit: contain; }
-/* Ground band, second plan, glued flush to the bottom edge, full width. aspect-ratio (not a fixed
-   vh height) means the box matches the image exactly — nothing cropped off the top. */
-.hero-slide--rocky-floor { left: 0; right: 0; bottom: 0; width: 100%; aspect-ratio: 1024 / 682; transform: translateY(100vh); transition-delay: 0.1s; }
-.hero-rocky-floor-img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
-/* 18 background rocks (17 mini rochers + rocher_4) — position/size/aspect-ratio/bob-delay set per element via inline
-   --x/--y/--size/--ar/--delay custom properties instead of 17 near-duplicate rules. */
-.hero-mini-rock {
-  left: var(--x); top: var(--y); width: var(--size); aspect-ratio: var(--ar);
-  transform: translateY(100vh); transition-delay: 0.35s;
-}
-.hero-mini-rock .hero-float-img { animation-delay: var(--delay, 0s); }
-
 @media (prefers-reduced-motion: reduce) {
-  .hero-smoke-img, .hero-float-img { animation: none; }
+  .hero-smoke-img, .hero-float-img, .hero-texture-canvas { animation: none; }
   .hero-slide { transform: none !important; transition: none !important; }
   .hero-slide--sky { opacity: 1 !important; }
   .hero-text { transform: none !important; }
@@ -329,15 +314,9 @@ a { color: inherit; }
   .hero-scene.is-active .hero-parallax { opacity: 1; }
 }
 
-.hero-overlay {
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: rgba(26,26,26,0.12);
-}
-
-/* Per-scene headline — sits after .hero-parallax in each .hero-scene so it paints above that
-   scene's layers; slides + fades with .is-active (same duration/easing/direction as the
-   .hero-slide layers it sits over) instead of a static crossfade, and stays invisible while the
-   scene is hidden thanks to the parent's visibility toggle in script.js. */
+/* Per-scene headline — a sibling of .hero-scenes (not nested inside .hero-scene). Visibility keys
+   off which .hero-scene is .is-active via :has() (same element it lives outside of), so it still
+   slides + fades in sync with that scene's .hero-slide layers. */
 .hero-text {
   position: absolute; inset: 0; z-index: 1;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
@@ -345,7 +324,11 @@ a { color: inherit; }
   opacity: 0; transform: translateY(28px);
   transition: opacity var(--scene-duration) var(--scene-ease), transform var(--scene-duration) var(--scene-ease);
 }
-.hero-scene.is-active .hero-text { opacity: 1; transform: translateY(0); }
+.hero:has(.hero-scene[data-scene="0"].is-active) .hero-text[data-hero-text="0"],
+.hero:has(.hero-scene[data-scene="1"].is-active) .hero-text[data-hero-text="1"],
+.hero:has(.hero-scene[data-scene="2"].is-active) .hero-text[data-hero-text="2"] {
+  opacity: 1; transform: translateY(0);
+}
 .hero-text-main {
   font-family: var(--font-hero-soft); font-weight: 700; color: #ffffff;
   font-size: clamp(28px, 4.5vw, 56px); line-height: 1.08; max-width: 55%; min-width: 0;
@@ -362,26 +345,6 @@ a { color: inherit; }
   .hero-text-main, .hero-text-sub { max-width: 100%; text-align: left; }
 }
 
-/* Film grain — a small feTurbulence tile (fixed 200px size, rendered once and CSS-repeated)
-   instead of a live full-viewport SVG filter, which is the expensive way to do this and can
-   janks scroll/parallax. Tune grain strength via --hero-grain-opacity, not the SVG itself. */
-.hero-grain {
-  position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
-  background-repeat: repeat; background-size: 200px 200px;
-  /* normal blend (not overlay/soft-light) so the grain reads the same over bright floating
-     images (astronaut, moon, rock) as it does over the dark sky — overlay/soft-light fade out
-     near white/black bases, which is why it looked sky-only before. */
-  opacity: var(--hero-grain-opacity, 0.22); /* higher = more visible grain */
-}
-
-/* Color grading — desaturated cool tint + edge vignette, both via one multiply layer. */
-.hero-grade {
-  position: absolute; inset: 0; z-index: 3; pointer-events: none;
-  background-color: var(--hero-grade-tint, rgba(90, 100, 95, 0.15));
-  background-image: radial-gradient(ellipse at center, transparent 35%, var(--hero-grade-vignette, rgba(0, 0, 0, 0.55)) 100%);
-  mix-blend-mode: multiply;
-}
 .pulse-dot {
   width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 8px var(--ok);
   animation: blinkDot calc(1.6s * var(--speed)) ease-in-out infinite; display: inline-block;

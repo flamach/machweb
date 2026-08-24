@@ -15,7 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=61">
+<link rel="stylesheet" href="style.css?v=65">
 </head>
 <body>
 
@@ -38,24 +38,27 @@
       <div class="hero-parallax">
 
         <div class="hero-slide hero-slide--sky" data-enter-transform="translateY(-100vh) scale(1.06)" data-exit-transform="translateY(100vh) scale(1.06)" data-fade>
-          <img src="input/animations/anim_1/night_sky.jpeg" alt="" class="hero-layer hero-layer--sky hero-sky-mask-enter" data-depth="0">
+          <div class="hero-layer hero-tex-wrap hero-sky-mask-enter" data-depth="0">
+            <img src="input/animations/anim_1/night_sky.jpeg" alt="" class="hero-layer--sky">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
         </div>
 
         <div class="hero-scene1-ground">
           <div class="hero-slide hero-slide--volcano" data-exit-transform="translateY(100vh)">
-            <img src="input/animations/anim_1/volcan.png" alt="" class="hero-layer hero-layer--volcano" data-depth="0.25" data-mouse-parallax="none">
+            <div class="hero-layer hero-tex-wrap" data-depth="0.25" data-mouse-parallax="none">
+              <img src="input/animations/anim_1/volcan.png" alt="" class="hero-layer--volcano">
+              <canvas class="hero-texture-canvas" data-texture></canvas>
+            </div>
           </div>
           <div class="hero-slide hero-slide--smoke" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
             <div class="hero-layer hero-layer--smoke" data-depth="0.7" data-mouse-parallax="0.5">
               <img src="input/animations/anim_1/smoke_3.png" alt="" class="hero-smoke-img">
+              <canvas class="hero-texture-canvas" data-texture></canvas>
             </div>
           </div>
         </div>
 
-      </div>
-      <div class="hero-text">
-        <span class="hero-text-main" data-i18n="hero.scene1.title">Need an incredible website</span>
-        <span class="hero-text-sub" data-i18n="hero.scene1.sub">Boost your brand with creativity.</span>
       </div>
     </div>
 
@@ -64,29 +67,33 @@
       <div class="hero-parallax">
 
         <div class="hero-slide hero-slide--sky" data-enter-transform="translateY(-100vh) scale(1.06)" data-exit-transform="translateY(100vh) scale(1.06)" data-fade>
-          <img src="input/animations/anim_2/sky.jpg" alt="" class="hero-layer hero-scene2-sky hero-sky-mask-enter" data-depth="0">
+          <div class="hero-layer hero-tex-wrap hero-sky-mask-enter" data-depth="0">
+            <img src="input/animations/anim_2/sky.jpg" alt="" class="hero-scene2-sky">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
         </div>
 
         <div class="hero-slide hero-slide--moon" data-exit-transform="translateY(100vh)">
-          <img src="input/animations/anim_2/moon.png" alt="" class="hero-layer hero-scene2-moon" data-depth="0">
+          <div class="hero-layer hero-tex-wrap-flow" data-depth="0">
+            <img src="input/animations/anim_2/moon.png" alt="" class="hero-scene2-moon">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
         </div>
 
         <div class="hero-slide hero-slide--astronaut" data-exit-transform="translateY(-100vh)">
           <div class="hero-layer hero-float" data-depth="0.3">
             <div class="hero-float-img hero-scene2-astronaut-img"></div>
+            <canvas class="hero-texture-canvas" data-texture></canvas>
           </div>
         </div>
 
         <div class="hero-slide hero-slide--butterfly" data-exit-transform="translateY(-100vh)">
           <div class="hero-layer hero-float" data-depth="0.42">
             <div class="hero-float-img hero-scene2-butterfly-img"></div>
+            <canvas class="hero-texture-canvas" data-texture></canvas>
           </div>
         </div>
 
-      </div>
-      <div class="hero-text">
-        <span class="hero-text-main" data-i18n="hero.scene2.title">Exceptional design</span>
-        <span class="hero-text-sub" data-i18n="hero.scene2.sub">We build a memorable identity and elevate your online presence.</span>
       </div>
     </div>
 
@@ -95,150 +102,16 @@
       <div class="hero-parallax">
 
         <div class="hero-slide hero-slide--sky" data-enter-transform="translateY(-100vh) scale(1.06)" data-exit-transform="translateY(100vh) scale(1.06)" data-fade>
-          <img src="input/animations/anim_3/clouds.png" alt="" class="hero-layer hero-scene3-sky hero-sky-mask-enter" data-depth="0">
+          <div class="hero-layer hero-tex-wrap hero-sky-mask-enter" data-depth="0">
+            <img src="input/animations/anim_3/clouds.png" alt="" class="hero-scene3-sky">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
         </div>
 
         <div class="hero-slide hero-slide--rock" data-exit-transform="translateY(100vh)">
           <div class="hero-layer hero-float" data-depth="0.3">
             <img src="input/animations/anim_3/lavender_rock.png" alt="" class="hero-float-img hero-scene3-rock-img">
-          </div>
-        </div>
-
-      </div>
-      <div class="hero-text hero-text--single">
-        <span class="hero-text-main" data-i18n-html="hero.scene3.title">Powerful experiences<br>for a unique brand</span>
-      </div>
-    </div>
-
-    <!-- Scene 3 — desert with scattered rocks. Layer order back-to-front: fond_gris (sky) ->
-         clouds + rocky-floor (second plan / midground, both depth ~0.15) -> rocher_1-3 (premier
-         plan, full mouse parallax) -> the 18 mini_rock images scattered across the whole scene at
-         low depth so they barely react to the mouse, reading as distant debris in front of the clouds. -->
-    <div class="hero-scene" data-scene="3">
-      <div class="hero-parallax">
-
-        <div class="hero-slide hero-slide--sky" data-enter-transform="translateY(-100vh) scale(1.06)" data-exit-transform="translateY(100vh) scale(1.06)" data-fade>
-          <img src="input/animations/anim_4/fond_gris.jpg" alt="" class="hero-layer hero-scene4-sky hero-sky-mask-enter" data-depth="0">
-        </div>
-
-        <div class="hero-slide hero-slide--clouds4" data-exit-transform="translateY(100vh)">
-          <div class="hero-layer hero-float" data-depth="0.15" data-mouse-parallax="none">
-            <img src="input/animations/anim_4/clouds.png" alt="" class="hero-clouds4-img">
-          </div>
-        </div>
-
-        <div class="hero-slide hero-slide--rocky-floor" data-exit-transform="translateY(100vh)">
-          <div class="hero-layer hero-float" data-depth="0.15" data-mouse-parallax="none">
-            <img src="input/animations/anim_4/rocky floor.png" alt="" class="hero-rocky-floor-img">
-          </div>
-        </div>
-
-        <div class="hero-slide hero-slide--rocher1" data-exit-transform="translateY(100vh)">
-          <div class="hero-layer hero-float" data-depth="0.3">
-            <img src="input/animations/anim_4/rocher_1.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-
-        <div class="hero-slide hero-slide--rocher2" data-exit-transform="translateY(100vh)">
-          <div class="hero-layer hero-float" data-depth="0.28">
-            <img src="input/animations/anim_4/rocher_2.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-
-        <div class="hero-slide hero-slide--rocher3" data-exit-transform="translateY(100vh)">
-          <div class="hero-layer hero-float" data-depth="0.2">
-            <img src="input/animations/anim_4/rocher_3.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:6%; --y:8%; --size:32px; --ar:150/120; --delay:0s;">
-          <div class="hero-layer hero-float" data-depth="0.06">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:18%; --y:48%; --size:20px; --ar:119/106; --delay:0.3s;">
-          <div class="hero-layer hero-float" data-depth="0.09">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t2.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:33%; --y:6%; --size:24px; --ar:113/99; --delay:0.6s;">
-          <div class="hero-layer hero-float" data-depth="0.07">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t3.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:47%; --y:34%; --size:14px; --ar:81/81; --delay:0.9s;">
-          <div class="hero-layer hero-float" data-depth="0.1">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t4.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:62%; --y:12%; --size:30px; --ar:119/143; --delay:1.2s;">
-          <div class="hero-layer hero-float" data-depth="0.08">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t5.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:74%; --y:44%; --size:18px; --ar:118/127; --delay:1.5s;">
-          <div class="hero-layer hero-float" data-depth="0.06">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t6.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:11%; --y:28%; --size:13px; --ar:52/51; --delay:0.15s;">
-          <div class="hero-layer hero-float" data-depth="0.11">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t7.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:39%; --y:52%; --size:11px; --ar:46/40; --delay:0.45s;">
-          <div class="hero-layer hero-float" data-depth="0.12">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t8.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:53%; --y:22%; --size:11px; --ar:41/39; --delay:0.75s;">
-          <div class="hero-layer hero-float" data-depth="0.07">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t9.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:85%; --y:20%; --size:17px; --ar:54/58; --delay:1.05s;">
-          <div class="hero-layer hero-float" data-depth="0.09">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t10.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:26%; --y:38%; --size:19px; --ar:60/62; --delay:1.35s;">
-          <div class="hero-layer hero-float" data-depth="0.06">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t11.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:68%; --y:6%; --size:22px; --ar:88/71; --delay:1.65s;">
-          <div class="hero-layer hero-float" data-depth="0.08">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t12.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:92%; --y:34%; --size:34px; --ar:143/140; --delay:0.2s;">
-          <div class="hero-layer hero-float" data-depth="0.1">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t13.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:4%; --y:52%; --size:22px; --ar:111/111; --delay:0.5s;">
-          <div class="hero-layer hero-float" data-depth="0.12">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t14.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:95%; --y:8%; --size:15px; --ar:53/53; --delay:0.8s;">
-          <div class="hero-layer hero-float" data-depth="0.05">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t15.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:57%; --y:44%; --size:17px; --ar:79/74; --delay:1.1s;">
-          <div class="hero-layer hero-float" data-depth="0.11">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t16.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:80%; --y:54%; --size:19px; --ar:95/110; --delay:1.4s;">
-          <div class="hero-layer hero-float" data-depth="0.1">
-            <img src="input/animations/anim_4/mini_rock/mini_rocher_t17.png" alt="" class="hero-float-img hero-rock-img">
-          </div>
-        </div>
-        <div class="hero-slide hero-mini-rock" data-exit-transform="translateY(100vh)" style="--x:44%; --y:14%; --size:26px; --ar:138/89; --delay:1s;">
-          <div class="hero-layer hero-float" data-depth="0.08">
-            <img src="input/animations/anim_4/mini_rock/rocher_4.png" alt="" class="hero-float-img hero-rock-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
           </div>
         </div>
 
@@ -246,9 +119,20 @@
     </div>
 
   </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-grain" aria-hidden="true"></div>
-  <div class="hero-grade" aria-hidden="true"></div>
+
+  <!-- Per-scene headlines — siblings of .hero-scenes (not nested in .hero-scene). Visibility
+       still tracks the active scene via :has(), same timing as before. -->
+  <div class="hero-text" data-hero-text="0">
+    <span class="hero-text-main" data-i18n="hero.scene1.title">Need an incredible website</span>
+    <span class="hero-text-sub" data-i18n="hero.scene1.sub">Boost your brand with creativity.</span>
+  </div>
+  <div class="hero-text" data-hero-text="1">
+    <span class="hero-text-main" data-i18n="hero.scene2.title">Exceptional design</span>
+    <span class="hero-text-sub" data-i18n="hero.scene2.sub">We build a memorable identity and elevate your online presence.</span>
+  </div>
+  <div class="hero-text hero-text--single" data-hero-text="2">
+    <span class="hero-text-main" data-i18n-html="hero.scene3.title">Powerful experiences<br>for a unique brand</span>
+  </div>
 </section>
 
 <section id="about" class="about">
@@ -473,6 +357,7 @@
   });
 </script>
 <script src="script.js?v=17"></script>
+<script src="canvas-texture.js?v=1"></script>
 <script src="i18n.js?v=5"></script>
 </body>
 </html>
