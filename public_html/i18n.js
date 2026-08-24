@@ -13,6 +13,11 @@
     'hero.ctaProjects': 'Voir mes projets',
     'hero.ctaAbout': 'À propos de moi',
     'hero.scrollHint': 'Descendre',
+    'hero.scene1.title': "Besoin d'un site web incroyable",
+    'hero.scene1.sub': 'Boostez votre marque avec créativité.',
+    'hero.scene2.title': 'Design exceptionnel',
+    'hero.scene2.sub': 'Nous construisons une identité mémorable et élevons votre présence en ligne.',
+    'hero.scene3.title': 'Expériences puissantes<br>pour une marque unique',
     'about.eyebrow': 'À propos',
     'about.heading': 'Qui suis-je',
     'about.role': 'Développeur Full-Stack',
@@ -96,7 +101,7 @@
     }
   }
 
-  let current = 'en';
+  let current = 'fr';
   try {
     const stored = localStorage.getItem('lang');
     if (stored === 'en' || stored === 'fr') current = stored;

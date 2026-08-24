@@ -1,57 +1,60 @@
 :root {
-  --page-bg: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(76,201,240,0.10), transparent),
-             radial-gradient(ellipse 60% 40% at 90% 20%, rgba(139,92,246,0.10), transparent),
-             #05050a;
-  --grid-line: rgba(76,201,240,0.035);
-  --nav-bg: rgba(5,5,10,0.55);
-  --panel-solid: rgba(6,7,14,0.97);
-  --panel-bg: linear-gradient(160deg, rgba(76,201,240,0.06), rgba(139,92,246,0.04));
+  --page-bg: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(242,87,31,0.035), transparent),
+             radial-gradient(ellipse 60% 40% at 90% 20%, rgba(58,58,58,0.35), transparent),
+             #1a1a1a;
+  --grid-line: rgba(227,227,227,0.035);
+  --nav-bg: rgba(26,26,26,0.55);
+  --panel-solid: rgba(26,26,26,0.97);
+  --panel-bg: linear-gradient(160deg, rgba(242,87,31,0.05), rgba(58,58,58,0.25));
   --panel-bg-faint: rgba(255,255,255,0.02);
   --hairline-color: rgba(255,255,255,0.1);
   --radius: 14px;
   --radius-sm: 8px;
   --radius-pill: 999px;
   --radius-bar: 6px;
-  --accent: #4cc9f0;
-  --accent2: #22d3ee;
-  --accent-soft: #6bd6ee;
-  --accent-faint: rgba(76,201,240,0.4);
-  --accent-tint: rgba(76,201,240,0.06);
-  --accent-tint2: rgba(76,201,240,0.25);
+  --accent: #f2571f;
+  --accent2: #f2571f;
+  --accent-soft: #ff8552;
+  --accent-faint: rgba(242,87,31,0.4);
+  --accent-tint: rgba(242,87,31,0.06);
+  --accent-tint2: rgba(242,87,31,0.25);
   --ok: #39ff88;
-  --text-primary: #e7e9f2;
-  --text-secondary: #d5d8e8;
-  --text-muted: #9aa1bd;
-  --text-faint: #676e8c;
+  --text-primary: #ffffff;
+  --text-secondary: #e3e3e3;
+  --text-muted: #a8a8a8;
+  --text-faint: #6e6e6e;
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --avatar-bg: linear-gradient(160deg, #12141f, #1b1e2e);
+  --font-hero-soft: 'Quicksand', sans-serif;
+  --avatar-bg: linear-gradient(160deg, #1f1f1f, #3a3a3a);
   --track-bg: rgba(255,255,255,0.06);
-  --bar-gradient: linear-gradient(90deg, #4cc9f0, #8b5cf6);
+  --bar-gradient: linear-gradient(90deg, #f2571f, #ff8552);
   --chip-bg: rgba(255,255,255,0.05);
-  --icon-bg: linear-gradient(160deg, rgba(76,201,240,0.15), rgba(139,92,246,0.1));
-  --glow: 0 0 20px rgba(76,201,240,0.35);
-  --glow-strong: 0 12px 40px rgba(76,201,240,0.18);
-  --cta-bg: linear-gradient(120deg, #4cc9f0, #8b5cf6);
-  --cta-color: #05050a;
-  --gradient-text: linear-gradient(120deg, #4cc9f0, #8b5cf6 60%, #39ff88);
+  --icon-bg: linear-gradient(160deg, rgba(242,87,31,0.18), rgba(242,87,31,0.06));
+  --glow: 0 0 20px rgba(242,87,31,0.35);
+  --glow-strong: 0 12px 40px rgba(242,87,31,0.18);
+  --cta-bg: linear-gradient(120deg, #f2571f, #ff8552);
+  --cta-color: #ffffff;
+  --gradient-text: linear-gradient(120deg, #ffffff, #f2571f 65%);
   --scan-opacity: 0.02;
-  --planet-core-from: #a8e0f5;
-  --planet-core-to: #0f1830;
-  --planet-ring: #8b5cf6;
-  --moon-core-from: #d7dbe8;
-  --moon-core-to: #33384a;
+  --planet-core-from: #ff9a63;
+  --planet-core-to: #2a1c14;
+  --planet-ring: #3a3a3a;
+  --moon-core-from: #e3e3e3;
+  --moon-core-to: #3a3a3a;
   --moon-shade: rgba(0,0,0,0.4);
   --speed: 1.25;
+  --scene-duration: 1.3s; /* scroll-triggered slide length — keep SCENE_LOCK_MS in script.js >= this (+ stagger) */
+  --scene-ease: cubic-bezier(0.45, 0, 0.55, 1); /* power2.inOut */
+  --scene-enter-duration: 1s; /* first-load entrance length */
+  --scene-enter-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* power2.out */
 }
 
 @keyframes twinkle { 0%,100% { opacity: 0.25; } 50% { opacity: 1; } }
 @keyframes floaty { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-14px); } }
-@keyframes pulseGlow { 0%,100% { box-shadow: 0 0 12px 0 rgba(76,201,240,0.35); } 50% { box-shadow: 0 0 28px 4px rgba(76,201,240,0.55); } }
 @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
 @keyframes blinkDot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-@keyframes spin360 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -63,10 +66,10 @@ body {
   overflow-x: hidden;
   position: relative;
 }
-::selection { background: rgba(76,201,240,0.35); color: #fff; }
+::selection { background: rgba(242,87,31,0.35); color: #fff; }
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: #05050a; }
-::-webkit-scrollbar-thumb { background: #1c2333; border-radius: 8px; }
+::-webkit-scrollbar-track { background: #1a1a1a; }
+::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 8px; }
 
 a { color: inherit; }
 
@@ -87,139 +90,27 @@ a { color: inherit; }
 }
 
 /* Nav */
-.nav {
-  position: fixed; top: 16px; left: 16px; right: 16px; z-index: 50;
-  max-width: 820px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-  gap: 8px;
-  padding: 10px 14px 10px 18px;
-  backdrop-filter: blur(16px);
-  background: var(--nav-bg);
-  border: 1px solid var(--hairline-color);
-  border-radius: var(--radius-pill);
-  box-shadow: var(--glow);
+.site-brand {
+  position: fixed; top: 16px; left: 16px; z-index: 55;
+  display: flex; align-items: center; gap: 0px; padding: 10px 4px;
+  font-family: var(--font-heading); font-weight: 700; font-size: 18px; letter-spacing: 0.5px;
+  color: var(--text-primary); text-decoration: none;
 }
-@media (min-width: 860px) {
-  .nav { gap: 20px; padding: 10px 16px 10px 20px; }
-}
-.nav-right { justify-self: end; }
+.site-brand-text { position: relative; top: 10px; margin-left: -4px; }
+.site-brand-logo { width: 60px; height: 60px; filter: drop-shadow(0 0 10px rgba(242,87,31,0.35)); }
+
 .brand {
   display: flex; align-items: center; gap: 10px;
   font-family: var(--font-heading); font-weight: 700; font-size: 18px; letter-spacing: 0.5px;
 }
 .accent { color: var(--accent); }
-.brand-orb {
-  width: 30px; height: 30px; border-radius: var(--radius-pill);
-  border: 2px solid var(--accent); position: relative;
-  display: flex; align-items: center; justify-content: center; box-shadow: var(--glow);
-}
-.brand-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent);
-}
-.brand-ring {
-  position: absolute; inset: -6px; border: 1px dashed var(--accent-faint); border-radius: var(--radius-pill);
-  animation: spin360 calc(12s * var(--speed)) linear infinite;
-}
 .brand-orb-sm { width: 24px; height: 24px; border-radius: var(--radius-pill); border: 2px solid var(--accent); }
-
-.nav-links { display: none; gap: 4px; align-items: center; position: relative; }
-.nav-links a, .mobile-menu a {
-  text-decoration: none; font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--text-secondary); transition: color 0.25s ease;
-}
-.nav-links a:hover, .mobile-menu a:hover { color: var(--accent); }
-.nav-links a.active { color: var(--accent); }
-.nav-links a {
-  position: relative; padding: 9px 16px; border-radius: var(--radius-pill);
-}
-
-/* Liquid glass droplet — a single bubble that glides between links and refracts whatever sits under it */
-.nav-glass {
-  position: absolute; top: 0; left: 0; height: 100%; width: 0;
-  border-radius: var(--radius-pill); pointer-events: none;
-  background:
-    radial-gradient(120% 140% at 28% 18%, rgba(255,255,255,0.4), rgba(255,255,255,0.08) 55%, transparent 78%),
-    rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.32);
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
-  backdrop-filter: blur(10px) saturate(180%);
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.55),
-    inset 0 -8px 12px -8px rgba(76,201,240,0.45),
-    0 8px 20px -6px rgba(76,201,240,0.35);
-  opacity: 0;
-  transition: left 380ms cubic-bezier(0.34, 1.1, 0.4, 1), width 380ms cubic-bezier(0.34, 1.1, 0.4, 1), opacity 200ms ease-out;
-}
-.nav-glass.visible { opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .nav-glass { transition: opacity 150ms ease; }
-}
-
-/* Standalone glass hover on the mobile menu button (excluded: lang-toggle) */
-@media (hover: hover) and (pointer: fine) {
-  .menu-toggle { position: relative; }
-  .menu-toggle::after {
-    content: '';
-    position: absolute; inset: -1px; pointer-events: none;
-    border-radius: var(--radius-pill);
-    background:
-      radial-gradient(120% 140% at 28% 18%, rgba(255,255,255,0.4), rgba(255,255,255,0.06) 55%, transparent 78%),
-      rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.3);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
-    backdrop-filter: blur(10px) saturate(180%);
-    box-shadow:
-      inset 0 1px 1px rgba(255,255,255,0.5),
-      inset 0 -8px 12px -8px rgba(76,201,240,0.4),
-      0 8px 20px -6px rgba(76,201,240,0.3);
-    opacity: 0; transform: scale(0.85);
-    transition: opacity 200ms ease-out, transform 200ms ease-out;
-  }
-  .menu-toggle:hover::after { opacity: 1; transform: scale(1); }
-  @media (prefers-reduced-motion: reduce) {
-    .menu-toggle::after { transform: none; transition: opacity 150ms ease; }
-  }
-}
 
 .cta {
   white-space: nowrap; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px;
   text-transform: uppercase; text-decoration: none; color: var(--cta-color); background: var(--cta-bg);
   border: none; padding: 10px 20px; border-radius: var(--radius-pill); font-weight: 600; box-shadow: var(--glow);
   display: inline-flex; align-items: center; justify-content: center;
-}
-
-.nav-right { display: flex; align-items: center; gap: 10px; }
-
-.lang-toggle {
-  display: inline-flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; font-weight: 600;
-  text-transform: uppercase; color: var(--text-secondary); background: none;
-  border: 1px solid var(--hairline-color); border-radius: var(--radius-pill);
-  padding: 10px 16px; cursor: pointer;
-  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-}
-.lang-toggle:hover { color: var(--accent); border-color: var(--accent-faint); background: var(--accent-tint); }
-
-.menu-toggle {
-  display: flex; background: none; border: 1px solid var(--hairline-color); border-radius: var(--radius-pill);
-  width: 40px; height: 40px; align-items: center; justify-content: center; color: var(--text-primary);
-  cursor: pointer; font-family: var(--font-mono); font-size: 16px;
-}
-
-.mobile-menu {
-  position: fixed; top: 80px; left: 16px; right: 16px; z-index: 49;
-  background: var(--panel-solid); backdrop-filter: blur(20px);
-  border: 1px solid var(--hairline-color); border-radius: var(--radius);
-  display: none; flex-direction: column; padding: 8px 24px 24px;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a { padding: 16px 0; border-bottom: 1px solid var(--hairline-color); }
-.mobile-menu a:last-child { border-bottom: none; }
-
-@media (min-width: 860px) {
-  .nav-links { display: flex; }
-  .menu-toggle { display: none; }
-  .mobile-menu { display: none !important; }
 }
 
 /* Hero */
@@ -237,47 +128,264 @@ a { color: inherit; }
   box-shadow: 0 0 24px var(--accent-faint);
   animation: floaty calc(9s * var(--speed)) ease-in-out infinite; z-index: 0;
 }
-.badge {
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px; color: var(--accent-soft);
-  text-transform: uppercase; padding: 8px 18px; border: 1px solid var(--accent-faint);
-  border-radius: var(--radius-pill); margin-bottom: 28px; background: var(--accent-tint);
-  display: inline-flex; align-items: center; gap: 8px; z-index: 1; position: relative;
+
+/* Hero scenes — each .hero-scene is a full-bleed slide composition; toggle .is-active (in
+   script.js) to switch between them. Add a new .hero-scene block to extend to scene 3+. */
+.hero-scenes {
+  position: absolute; inset: 0; z-index: 0;
+  /* Cinematic grade applied once to the whole stacked scene (not per-image) — tune here. */
+  filter: saturate(var(--hero-grade-saturate, 0.85)) contrast(var(--hero-grade-contrast, 1.05));
+}
+/* Scene 0 (volcano) has no light backdrop like scene 2's fallback gray — its night sky + black
+   rock read much darker than the other scenes under the same grade, so it gets its own lift. */
+.hero-scenes:has(.hero-scene[data-scene="0"].is-active) {
+  filter: saturate(var(--hero-grade-saturate, 0.85)) contrast(var(--hero-grade-contrast, 1.05)) brightness(var(--hero-scene1-lift, 1.2));
+}
+/* Scene 2's sky mask fades its bottom edge to transparent for as long as it's active (see
+   .hero-sky-mask-enter below) — scene 0/1 never notice because their volcano/moon art opaquely
+   covers that same spot, but scene 2 has nothing at the bottom to cover it. A static fallback tone
+   fixes the reveal, scoped to only when scene 2 is active so scene 0/1 render exactly as before
+   (including their own first-load fade-in, which would otherwise flash this color too). Living
+   behind ALL scenes (not wedged inside scene 2's own sky box) means scene 1 still shows through
+   scene 2's incoming transparent edge while it's sliding out — the color only takes over once
+   scene 1 is actually gone (existing visibility:hidden cleanup in exitScene) — and since is-active
+   flips synchronously with the slide itself, there's no separate timing/transition to get wrong. */
+.hero-scenes:has(.hero-scene[data-scene="2"].is-active) { background: #8f96a8; }
+.hero-scene { position: absolute; inset: 0; }
+.hero-scene:not(.is-active) { pointer-events: none; }
+/* .hero-scene gets visibility:hidden set inline by script.js, once its exit slide finishes — a
+   0-duration CSS transition-delay on visibility is unreliable in Chrome (the transition can get
+   stuck "running" and never resolve), so this is done in JS instead of a CSS-only trick. */
+
+.hero-parallax { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+
+/* Directional slide — each .hero-slide sits at its own off-screen translateY by default (set per
+   modifier class below) and script.js animates it to translateY(0) on entry / to its data-exit-y
+   on exit. The transform lives here only: JS mouse/scroll parallax (.hero-layer) and the idle-bob
+   loops (.hero-smoke-img / .hero-float-img) live on nested children so no element ever has two
+   different things fighting over its `transform`. .is-entering swaps in the softer first-load
+   easing/duration; script.js strips it after the entrance finishes. */
+.hero-slide {
+  position: absolute; will-change: transform;
+  transition: transform var(--scene-duration) var(--scene-ease);
+}
+.hero-slide.is-entering {
+  transition-duration: var(--scene-enter-duration);
+  transition-timing-function: var(--scene-enter-ease);
+}
+.hero-layer { will-change: transform; }
+
+/* Sky — shared by both scenes: whichever sky is entering slides down from the top, whichever is
+   leaving slides down further to the bottom, so the two skies read as one continuous curtain.
+   translateY uses vh (not %) so every layer — including the small floating ones further down —
+   is guaranteed to clear the viewport regardless of its own box height.
+   Bug fix (seam between the two skies): a hard edge was visible where the incoming/outgoing sky
+   touch mid-slide. A mask-fade alone wasn't enough — the two boxes only ever touched along a single
+   line (0 overlap), so fading each edge to transparent there just revealed the dark background
+   behind them instead of blending the two skies into each other. Fixed by making each sky's box
+   SKY_OVERLAP taller than the viewport (top/bottom go beyond 0/100%, instead of inset:0) while
+   keeping the same -100vh/0/100vh travel — the extra height means the two boxes now genuinely
+   overlap by 2×SKY_OVERLAP for the whole transition, so within that band both images are actually
+   rendered on top of each other and can cross-blend, combined with:
+   1) a mask-image fade on each sky's OWN contact edge, now blending real image content instead of
+      background — night_sky's TOP and sky.jpg's BOTTOM are the edges that touch as they slide down
+      together (verified geometrically: the seam sits at night_sky's top edge / sky.jpg's bottom
+      edge, not the reverse);
+   2) opacity 0<->1 running over the full transition, layered on top of the mask;
+   3) a subtle scale(1.06) baked into the off-screen transform, which eases back to scale(1) at
+      rest — the zoom draws the eye away from the seam and reads as one continuous camera move. */
+.hero-slide--sky {
+  top: -12vh; bottom: -12vh; left: 0; right: 0; /* SKY_OVERLAP = 12vh on each edge */
+  transform: translateY(-100vh) scale(1.06); opacity: 0;
+  transition: transform var(--scene-duration) var(--scene-ease), opacity var(--scene-duration) var(--scene-ease);
+  will-change: transform, opacity;
+}
+.hero-slide--sky.is-entering {
+  transition-duration: var(--scene-enter-duration);
+  transition-timing-function: var(--scene-enter-ease);
+}
+
+/* The sky's mask direction depends on its current ROLE (entering vs exiting), not on which scene
+   it belongs to — the two skies swap roles depending on which way the user is scrolling, so
+   script.js toggles these two classes on the .hero-layer img itself instead of baking a fixed
+   direction into .hero-layer--sky / .hero-scene2-sky (that only worked for one direction). */
+.hero-sky-mask-enter {
+  mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+}
+.hero-sky-mask-exit {
+  mask-image: linear-gradient(to top, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, black 75%, transparent 100%);
+}
+
+/* Scene 0 — volcano */
+.hero-layer--sky {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom;
+}
+.hero-scene1-ground {
+  position: absolute; left: 0; right: 0; bottom: 0; width: 100%;
+  aspect-ratio: 3000 / 1080;
+  transform: translateY(30%);
+}
+.hero-slide--volcano { inset: 0; transform: translateY(100vh); transition-delay: 0.1s; }
+.hero-layer--volcano {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom;
+}
+.hero-slide--smoke {
+  left: 49%; bottom: 78%; width: 40%; margin-left: -20%;
+  transform: translateY(100vh); transition-delay: 0.15s;
+}
+.hero-layer--smoke { display: block; width: 100%; }
+.hero-smoke-img {
+  display: block; width: 100%; height: auto; transform-origin: 50% 100%;
+  animation: smokeDrift 9s ease-in-out infinite;
+}
+@keyframes smokeDrift {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.85; }
+  50% { transform: translateY(-18px) scale(1.03); opacity: 1; }
+}
+
+/* Scene 1 — moon */
+.hero-scene2-sky {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;
+}
+.hero-slide--moon { left: 0; right: 0; bottom: -25vh; width: 100%; transform: translateY(100vh); }
+.hero-scene2-moon { display: block; width: 100%; height: auto; object-fit: contain; object-position: bottom; }
+
+/* Astronaut/butterfly appear in sequence (moon, then astronaut, then butterfly) via transition-delay. */
+.hero-slide--astronaut {
+  left: 40%; bottom: calc(38% - 25vh); width: 15%; aspect-ratio: 2176 / 4816;
+  transform: translateY(100vh); transition-delay: 0.2s;
+}
+.hero-slide--butterfly {
+  left: 61%; bottom: calc(65% - 9vh); width: 1.6%; aspect-ratio: 2440 / 1592;
+  transform: translateY(100vh); transition-delay: 0.4s;
+}
+.hero-float { position: absolute; inset: 0; }
+.hero-float-img {
+  width: 100%; height: 100%; background-repeat: no-repeat;
+  animation: floaty calc(3.6s * var(--speed)) ease-in-out infinite;
+}
+.hero-slide--butterfly .hero-float-img {
+  animation-duration: calc(3s * var(--speed)); animation-delay: 0.4s;
+}
+.hero-scene2-astronaut-img {
+  background-image: url('input/animations/anim_2/astronaut.png');
+  background-size: 173.5% 106.3%; background-position: 43.3% 51.3%;
+}
+.hero-scene2-butterfly-img {
+  background-image: url('input/animations/anim_2/butterfly.png');
+  background-size: 327.9% 251.3%; background-position: 47.3% 58.3%;
+}
+
+/* Scene 2 — lavender rock */
+.hero-scene3-sky {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;
+}
+.hero-slide--rock {
+  left: 50%; bottom: 18%; width: 22%; margin-left: -11%; aspect-ratio: 771 / 1024;
+  transform: translateY(100vh); transition-delay: 0.2s;
+}
+.hero-scene3-rock-img { display: block; object-fit: contain; }
+
+/* Scene 3 — desert with scattered rocks */
+/* Scene 3 is the LAST scene — there's no scene 4 below it to blend into, so unlike the other
+   skies its box doesn't need the bottom half of SKY_OVERLAP (it was clipping ~12vh of real
+   ground/horizon out of view for no benefit) and its bottom-edge fade mask (which the other
+   skies keep permanently while active, see the scene-2 fallback-background comment above) has
+   nothing to blend with either — both just hid the ground. Disabled for this one sky only. */
+.hero-scene[data-scene="3"] .hero-slide--sky { bottom: 0; }
+.hero-scene4-sky {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom;
+  mask-image: none; -webkit-mask-image: none;
+}
+.hero-rock-img { display: block; object-fit: contain; }
+.hero-slide--rocher1 { left: -4%; bottom: 0; width: 24%; aspect-ratio: 1024 / 1024; transform: translateY(100vh); transition-delay: 0.15s; }
+.hero-slide--rocher2 { right: -10%; top: -8%; width: 30%; aspect-ratio: 1024 / 1024; transform: translateY(100vh); transition-delay: 0.2s; }
+.hero-slide--rocher3 { right: 4%; bottom: 8%; width: 8%; aspect-ratio: 1024 / 917; transform: translateY(100vh); transition-delay: 0.25s; }
+/* Cloud band — second plan, full width, its own transparent top fade (built into the PNG) means
+   the box's bottom offset alone controls how high up the visible cloud mass reads (~2/3-3/4 up
+   the screen per request); the box itself is much taller than that (mostly transparent). */
+.hero-slide--clouds4 { left: 0; right: 0; bottom: 66%; width: 100%; aspect-ratio: 8000 / 2248; transform: translateY(100vh); transition-delay: 0.05s; }
+.hero-clouds4-img { display: block; width: 100%; height: 100%; object-fit: contain; }
+/* Ground band, second plan, glued flush to the bottom edge, full width. aspect-ratio (not a fixed
+   vh height) means the box matches the image exactly — nothing cropped off the top. */
+.hero-slide--rocky-floor { left: 0; right: 0; bottom: 0; width: 100%; aspect-ratio: 1024 / 682; transform: translateY(100vh); transition-delay: 0.1s; }
+.hero-rocky-floor-img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+/* 18 background rocks (17 mini rochers + rocher_4) — position/size/aspect-ratio/bob-delay set per element via inline
+   --x/--y/--size/--ar/--delay custom properties instead of 17 near-duplicate rules. */
+.hero-mini-rock {
+  left: var(--x); top: var(--y); width: var(--size); aspect-ratio: var(--ar);
+  transform: translateY(100vh); transition-delay: 0.35s;
+}
+.hero-mini-rock .hero-float-img { animation-delay: var(--delay, 0s); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-smoke-img, .hero-float-img { animation: none; }
+  .hero-slide { transform: none !important; transition: none !important; }
+  .hero-slide--sky { opacity: 1 !important; }
+  .hero-text { transform: none !important; }
+  .hero-parallax { opacity: 0; transition: opacity 0.5s ease; }
+  .hero-scene.is-active .hero-parallax { opacity: 1; }
+}
+
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: rgba(26,26,26,0.12);
+}
+
+/* Per-scene headline — sits after .hero-parallax in each .hero-scene so it paints above that
+   scene's layers; slides + fades with .is-active (same duration/easing/direction as the
+   .hero-slide layers it sits over) instead of a static crossfade, and stays invisible while the
+   scene is hidden thanks to the parent's visibility toggle in script.js. */
+.hero-text {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 0 6%; pointer-events: none;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity var(--scene-duration) var(--scene-ease), transform var(--scene-duration) var(--scene-ease);
+}
+.hero-scene.is-active .hero-text { opacity: 1; transform: translateY(0); }
+.hero-text-main {
+  font-family: var(--font-hero-soft); font-weight: 700; color: #ffffff;
+  font-size: clamp(28px, 4.5vw, 56px); line-height: 1.08; max-width: 55%; min-width: 0;
+  overflow-wrap: break-word; text-shadow: 0 2px 20px rgba(0,0,0,0.45);
+}
+.hero-text-sub {
+  font-family: var(--font-hero-soft); font-weight: 500; color: #ffffff;
+  font-size: clamp(13px, 1.4vw, 17px); line-height: 1.5; max-width: 30%; min-width: 0;
+  overflow-wrap: break-word; text-align: right; text-shadow: 0 2px 14px rgba(0,0,0,0.45);
+}
+.hero-text--single .hero-text-main { max-width: 70%; }
+@media (max-width: 640px) {
+  .hero-text { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .hero-text-main, .hero-text-sub { max-width: 100%; text-align: left; }
+}
+
+/* Film grain — a small feTurbulence tile (fixed 200px size, rendered once and CSS-repeated)
+   instead of a live full-viewport SVG filter, which is the expensive way to do this and can
+   janks scroll/parallax. Tune grain strength via --hero-grain-opacity, not the SVG itself. */
+.hero-grain {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 200px 200px;
+  /* normal blend (not overlay/soft-light) so the grain reads the same over bright floating
+     images (astronaut, moon, rock) as it does over the dark sky — overlay/soft-light fade out
+     near white/black bases, which is why it looked sky-only before. */
+  opacity: var(--hero-grain-opacity, 0.22); /* higher = more visible grain */
+}
+
+/* Color grading — desaturated cool tint + edge vignette, both via one multiply layer. */
+.hero-grade {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background-color: var(--hero-grade-tint, rgba(90, 100, 95, 0.15));
+  background-image: radial-gradient(ellipse at center, transparent 35%, var(--hero-grade-vignette, rgba(0, 0, 0, 0.55)) 100%);
+  mix-blend-mode: multiply;
 }
 .pulse-dot {
   width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 8px var(--ok);
   animation: blinkDot calc(1.6s * var(--speed)) ease-in-out infinite; display: inline-block;
 }
-
-.hero-title {
-  font-family: var(--font-heading); font-weight: 700; font-size: clamp(34px, 6vw, 76px); line-height: 1.08;
-  margin: 0 0 24px; max-width: 980px; letter-spacing: -0.5px; color: var(--text-primary);
-  position: relative; z-index: 1;
-}
-.gradient-text {
-  background: var(--gradient-text); -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.hero-sub {
-  font-size: clamp(15px, 2vw, 19px); color: var(--text-muted); max-width: 600px; line-height: 1.6;
-  margin: 0 0 40px; font-family: var(--font-body); position: relative; z-index: 1;
-}
-.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
-.hero-cta { padding: 16px 32px; font-size: 13px; animation: pulseGlow calc(3s * var(--speed)) ease-in-out infinite; transition: transform 0.25s ease; }
-.hero-cta:hover { transform: translateY(-3px); }
-.ghost-btn {
-  text-decoration: none; white-space: nowrap; font-family: var(--font-mono); font-size: 13px; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--text-primary); border: 1px solid var(--hairline-color);
-  padding: 16px 32px; border-radius: var(--radius-pill); transition: border-color 0.25s ease, color 0.25s ease;
-}
-.ghost-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-.scroll-hint {
-  margin-top: 90px; display: flex; flex-direction: column; align-items: center; gap: 8px;
-  animation: floaty calc(3s * var(--speed)) ease-in-out infinite; position: relative; z-index: 1;
-}
-.scroll-hint span:first-child {
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-faint); text-transform: uppercase;
-}
-.scroll-line { width: 1px; height: 36px; background: linear-gradient(var(--accent), transparent); }
 
 /* Section shared */
 .section-head { text-align: center; margin-bottom: 56px; position: relative; z-index: 1; }
@@ -335,7 +443,7 @@ a { color: inherit; }
 }
 .skill-gauge.visible .dial { background: conic-gradient(var(--accent) calc(var(--lvl) * 3.6deg), var(--track-bg) 0deg); }
 .dial-inner {
-  width: 62px; height: 62px; border-radius: 50%; background: #05050a;
+  width: 62px; height: 62px; border-radius: 50%; background: #1a1a1a;
   display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 13px; color: var(--accent);
 }
 .skill-name { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.5px; color: var(--text-secondary); text-align: center; }
@@ -360,7 +468,7 @@ a { color: inherit; }
   padding: 6px 12px; border-radius: var(--radius-pill); border: 1px solid currentColor;
 }
 .status-online { color: #39ff88; background: rgba(57,255,136,0.08); }
-.status-progress { color: #4cc9f0; background: rgba(76,201,240,0.08); }
+.status-progress { color: #e3e3e3; background: rgba(227,227,227,0.08); }
 .status-maintenance { color: #f5a623; background: rgba(245,166,35,0.08); }
 .project-card h3 { font-family: var(--font-heading); font-size: 20px; margin: 0 0 10px; }
 .project-card p { font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 0 0 20px; min-height: 66px; font-family: var(--font-body); }
