@@ -1,23 +1,28 @@
+@font-face {
+  font-family: 'Alpino';
+  src: url('fonts/Alpino-Regular.woff2') format('woff2'), url('fonts/Alpino-Regular.woff') format('woff');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Alpino';
+  src: url('fonts/Alpino-Bold.woff2') format('woff2'), url('fonts/Alpino-Bold.woff') format('woff');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
 :root {
   --page-bg: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(242,87,31,0.035), transparent),
              radial-gradient(ellipse 60% 40% at 90% 20%, rgba(58,58,58,0.35), transparent),
              #1a1a1a;
   --grid-line: rgba(227,227,227,0.035);
-  --nav-bg: rgba(26,26,26,0.55);
-  --panel-solid: rgba(26,26,26,0.97);
   --panel-bg: linear-gradient(160deg, rgba(242,87,31,0.05), rgba(58,58,58,0.25));
   --panel-bg-faint: rgba(255,255,255,0.02);
   --hairline-color: rgba(255,255,255,0.1);
   --radius: 14px;
   --radius-sm: 8px;
   --radius-pill: 999px;
-  --radius-bar: 6px;
   --accent: #f2571f;
   --accent2: #f2571f;
-  --accent-soft: #ff8552;
   --accent-faint: rgba(242,87,31,0.4);
-  --accent-tint: rgba(242,87,31,0.06);
-  --accent-tint2: rgba(242,87,31,0.25);
   --ok: #39ff88;
   --text-primary: #ffffff;
   --text-secondary: #e3e3e3;
@@ -27,23 +32,10 @@
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-hero-soft: 'Quicksand', sans-serif;
-  --avatar-bg: linear-gradient(160deg, #1f1f1f, #3a3a3a);
-  --track-bg: rgba(255,255,255,0.06);
-  --bar-gradient: linear-gradient(90deg, #f2571f, #ff8552);
-  --chip-bg: rgba(255,255,255,0.05);
-  --icon-bg: linear-gradient(160deg, rgba(242,87,31,0.18), rgba(242,87,31,0.06));
   --glow: 0 0 20px rgba(242,87,31,0.35);
-  --glow-strong: 0 12px 40px rgba(242,87,31,0.18);
   --cta-bg: linear-gradient(120deg, #f2571f, #ff8552);
   --cta-color: #ffffff;
-  --gradient-text: linear-gradient(120deg, #ffffff, #f2571f 65%);
   --scan-opacity: 0.02;
-  --planet-core-from: #ff9a63;
-  --planet-core-to: #2a1c14;
-  --planet-ring: #3a3a3a;
-  --moon-core-from: #e3e3e3;
-  --moon-core-to: #3a3a3a;
-  --moon-shade: rgba(0,0,0,0.4);
   --speed: 1.25;
   --scene-duration: 1.3s; /* scroll-triggered slide length — keep SCENE_LOCK_MS in script.js >= this (+ stagger) */
   --scene-ease: cubic-bezier(0.45, 0, 0.55, 1); /* power2.inOut */
@@ -51,9 +43,7 @@
   --scene-enter-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* power2.out */
 }
 
-@keyframes twinkle { 0%,100% { opacity: 0.25; } 50% { opacity: 1; } }
 @keyframes floaty { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-14px); } }
-@keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
 @keyframes blinkDot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
 * { box-sizing: border-box; }
@@ -73,9 +63,6 @@ body {
 
 a { color: inherit; }
 
-#starfield {
-  position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
-}
 .grid-overlay {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
@@ -91,7 +78,7 @@ a { color: inherit; }
 
 /* Nav */
 .site-brand {
-  position: fixed; top: 16px; left: 16px; z-index: 55;
+  position: fixed; top: -2px; left: 16px; z-index: 55;
   display: flex; align-items: center; gap: 0px; padding: 10px 4px;
   font-family: var(--font-heading); font-weight: 700; font-size: 18px; letter-spacing: 0.5px;
   color: var(--text-primary); text-decoration: none;
@@ -99,12 +86,34 @@ a { color: inherit; }
 .site-brand-text { position: relative; top: 10px; margin-left: -4px; }
 .site-brand-logo { width: 60px; height: 60px; filter: drop-shadow(0 0 10px rgba(242,87,31,0.35)); }
 
+.lang-toggle {
+  position: fixed; top: 24px; right: 24px; z-index: 55;
+  padding: 8px 16px; border: 1.5px solid #ffffff; border-radius: var(--radius-pill);
+  background: transparent; color: #ffffff;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 1px;
+  cursor: pointer; transition: background 0.2s ease, color 0.2s ease;
+}
+.lang-toggle:hover { background: #ffffff; color: #1a1a1a; }
+
+.side-nav {
+  position: fixed; top: 130px; right: 24px; z-index: 55;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 22px;
+}
+.side-nav-link {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; text-decoration: none; color: #ffffff;
+  transform-origin: right center;
+  transition: transform 0.25s ease;
+}
+.side-nav-link:hover { transform: translateX(-10px) scale(1.2); text-decoration: underline; }
+@media (max-width: 640px) { .side-nav { display: none; } }
+
 .brand {
   display: flex; align-items: center; gap: 10px;
   font-family: var(--font-heading); font-weight: 700; font-size: 18px; letter-spacing: 0.5px;
 }
 .accent { color: var(--accent); }
-.brand-orb-sm { width: 24px; height: 24px; border-radius: var(--radius-pill); border: 2px solid var(--accent); }
+.brand-logo-sm { width: 28px; height: 28px; display: block; }
 
 .cta {
   white-space: nowrap; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px;
@@ -114,21 +123,14 @@ a { color: inherit; }
 }
 
 /* Hero */
+/* Sticky (not relative) so the hero holds its position at the top of the viewport for exactly one
+   more viewport's worth of scroll once the wheel-jacking releases (last scene reached) — #projects,
+   next in normal flow right after it, then scrolls up and visually slides over it instead of the
+   two sections just cutting from one to the other. */
 .hero {
-  position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column;
+  position: sticky; top: 0; z-index: 0; min-height: 100vh; display: flex; flex-direction: column;
   align-items: center; justify-content: center; text-align: center; padding: 140px 24px 80px; overflow: hidden;
 }
-.moon {
-  position: absolute; bottom: 16%; left: 9%; width: 84px; height: 84px; border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 35%, var(--moon-shade) 9%, transparent 10%),
-    radial-gradient(circle at 62% 58%, var(--moon-shade) 7%, transparent 8%),
-    radial-gradient(circle at 45% 75%, var(--moon-shade) 5%, transparent 6%),
-    radial-gradient(circle at 28% 32%, var(--moon-core-from), var(--moon-core-to) 75%);
-  box-shadow: 0 0 24px var(--accent-faint);
-  animation: floaty calc(9s * var(--speed)) ease-in-out infinite; z-index: 0;
-}
-
 /* Hero scenes — each .hero-scene is a full-bleed slide composition; toggle .is-active (in
    script.js) to switch between them. Add a new .hero-scene block to extend to scene 3+. */
 .hero-scenes {
@@ -144,6 +146,7 @@ a { color: inherit; }
    scene 1 is actually gone (existing visibility:hidden cleanup in exitScene) — and since is-active
    flips synchronously with the slide itself, there's no separate timing/transition to get wrong. */
 .hero-scenes:has(.hero-scene[data-scene="2"].is-active) { background: #8f96a8; }
+.hero-scenes:has(.hero-scene[data-scene="3"].is-active) { background: #05060a; }
 .hero-scene { position: absolute; inset: 0; }
 .hero-scene:not(.is-active) { pointer-events: none; }
 /* .hero-scene gets visibility:hidden set inline by script.js, once its exit slide finishes — a
@@ -155,7 +158,7 @@ a { color: inherit; }
 /* Directional slide — each .hero-slide sits at its own off-screen translateY by default (set per
    modifier class below) and script.js animates it to translateY(0) on entry / to its data-exit-y
    on exit. The transform lives here only: JS mouse/scroll parallax (.hero-layer) and the idle-bob
-   loops (.hero-smoke-img / .hero-float-img) live on nested children so no element ever has two
+   loops (.hero-float-img) live on nested children so no element ever has two
    different things fighting over its `transform`. .is-entering swaps in the softer first-load
    easing/duration; script.js strips it after the entrance finishes. */
 .hero-slide {
@@ -195,9 +198,8 @@ a { color: inherit; }
    overlap by 2×SKY_OVERLAP for the whole transition, so within that band both images are actually
    rendered on top of each other and can cross-blend, combined with:
    1) a mask-image fade on each sky's OWN contact edge, now blending real image content instead of
-      background — night_sky's TOP and sky.jpg's BOTTOM are the edges that touch as they slide down
-      together (verified geometrically: the seam sits at night_sky's top edge / sky.jpg's bottom
-      edge, not the reverse);
+      background — the entering sky's TOP and the exiting sky's BOTTOM are the edges that touch as
+      they slide down together (verified geometrically: the seam sits there, not the reverse);
    2) opacity 0<->1 running over the full transition, layered on top of the mask;
    3) a subtle scale(1.06) baked into the off-screen transform, which eases back to scale(1) at
       rest — the zoom draws the eye away from the seam and reads as one continuous camera move. */
@@ -227,39 +229,99 @@ a { color: inherit; }
 
 /* Scene 0 — volcano */
 .hero-layer--sky {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom;
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;
 }
-.hero-scene1-ground {
-  position: absolute; left: 0; right: 0; bottom: 0; width: 100%;
-  aspect-ratio: 3000 / 1080;
-  transform: translateY(30%);
+.hero-scene1-debris-img { display: block; object-fit: contain; }
+
+.hero-slide--volcano-debris1 {
+  left: 29%; bottom: 63.9%; width: 2.6vw; margin-left: -1.3vw; aspect-ratio: 544 / 456;
+  transform: translateY(100vh); transition-delay: 0.1s;
 }
-.hero-slide--volcano { inset: 0; transform: translateY(100vh); transition-delay: 0.1s; }
-.hero-layer--volcano {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom;
-}
-.hero-slide--smoke {
-  left: 49%; bottom: 78%; width: 40%; margin-left: -20%;
+.hero-slide--volcano-debris2 {
+  left: 37%; bottom: 56.7%; width: 0.5vw; margin-left: -0.25vw; aspect-ratio: 41 / 43;
   transform: translateY(100vh); transition-delay: 0.15s;
 }
-.hero-layer--smoke { position: relative; display: block; width: 100%; }
-.hero-smoke-img {
-  display: block; width: 100%; height: auto; transform-origin: 50% 100%;
-  animation: smokeDrift 9s ease-in-out infinite;
+.hero-slide--volcano-debris3 {
+  left: 30.5%; bottom: 30.6%; width: 0.5vw; margin-left: -0.25vw; aspect-ratio: 60 / 108;
+  transform: translateY(100vh); transition-delay: 0.2s;
 }
-/* The texture canvas is masked to a static snapshot of its image's silhouette (see
-   canvas-texture.js) — it doesn't repaint every frame, so an image with its own idle-bob
-   animation would drift away from its mask over time (the "trail" left behind). Giving the
-   canvas the exact same animation/transform-origin keeps the two moving as one rigid unit. */
-.hero-smoke-img + .hero-texture-canvas { animation: smokeDrift 9s ease-in-out infinite; transform-origin: 50% 100%; }
-@keyframes smokeDrift {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 0.85; }
-  50% { transform: translateY(-18px) scale(1.03); opacity: 1; }
+.hero-slide--volcano-debris4 {
+  left: 21%; bottom: 61.2%; width: 1.34vw; margin-left: -0.67vw; aspect-ratio: 270 / 282;
+  transform: translateY(100vh); transition-delay: 0.05s;
+}
+.hero-slide--volcano-debris5 {
+  left: 64%; bottom: 67.5%; width: 3.5vw; margin-left: -1.75vw; aspect-ratio: 735 / 359;
+  transform: translateY(100vh); transition-delay: 0.25s;
+}
+.hero-slide--volcano-debris6 {
+  left: 73%; bottom: 24.3%; width: 1.1vw; margin-left: -0.55vw; aspect-ratio: 227 / 333;
+  transform: translateY(100vh); transition-delay: 0.3s;
+}
+.hero-slide--volcano-debris7 {
+  left: 53%; bottom: 50.85%; width: 0.5vw; margin-left: -0.25vw; aspect-ratio: 88 / 83;
+  transform: translateY(100vh); transition-delay: 0.12s;
+}
+.hero-slide--volcano-debris8 {
+  left: 23%; bottom: 47.7%; width: 0.5vw; margin-left: -0.25vw; aspect-ratio: 81 / 97;
+  transform: translateY(100vh); transition-delay: 0.18s;
+}
+.hero-slide--volcano-debris9 {
+  left: 47%; bottom: 68.4%; width: 0.5vw; margin-left: -0.25vw; aspect-ratio: 63 / 48;
+  transform: translateY(100vh); transition-delay: 0.22s;
+}
+.hero-slide--volcano-debris10 {
+  left: 60%; bottom: 59.4%; width: 0.83vw; margin-left: -0.415vw; aspect-ratio: 174 / 154;
+  transform: translateY(100vh); transition-delay: 0.08s;
+}
+.hero-slide--volcano-debris11 {
+  left: 76%; bottom: 54%; width: 0.5vw; margin-left: -0.25vw; aspect-ratio: 51 / 62;
+  transform: translateY(100vh); transition-delay: 0.16s;
+}
+.hero-slide--volcano-debris12 {
+  left: 42%; bottom: 45%; width: 0.54vw; margin-left: -0.27vw; aspect-ratio: 58 / 114;
+  transform: translateY(100vh); transition-delay: 0.24s;
+}
+.hero-slide--volcano-debris13 {
+  left: 25%; bottom: 69.3%; width: 0.5vw; margin-left: -0.25vw; aspect-ratio: 64 / 54;
+  transform: translateY(100vh); transition-delay: 0.28s;
+}
+.hero-slide--volcano-debris14 {
+  left: 53%; bottom: 22.5%; width: 0.55vw; margin-left: -0.275vw; aspect-ratio: 116 / 76;
+  transform: translateY(100vh); transition-delay: 0.06s;
+}
+.hero-slide--volcano-debris15 {
+  left: 68%; bottom: 49.5%; width: 0.79vw; margin-left: -0.395vw; aspect-ratio: 156 / 165;
+  transform: translateY(100vh); transition-delay: 0.14s;
+}
+.hero-slide--volcano-debris16 {
+  left: 34%; bottom: 42.3%; width: 0.83vw; margin-left: -0.415vw; aspect-ratio: 174 / 155;
+  transform: translateY(100vh); transition-delay: 0.2s;
+}
+.hero-slide--volcano-debris17 {
+  left: 56.5%; bottom: 44.1%; width: 0.5vw; margin-left: -0.25vw; aspect-ratio: 90 / 88;
+  transform: translateY(100vh); transition-delay: 0.26s;
+}
+.hero-slide--volcano-debris18 {
+  left: 79%; bottom: 45%; width: 0.8vw; margin-left: -0.4vw; aspect-ratio: 120 / 169;
+  transform: translateY(100vh); transition-delay: 0.1s;
+}
+.hero-slide--volcano-debris19 {
+  left: 40%; bottom: 20.7%; width: 0.63vw; margin-left: -0.315vw; aspect-ratio: 132 / 58;
+  transform: translateY(100vh); transition-delay: 0.19s;
+}
+.hero-slide--volcano-debris20 {
+  left: 50%; bottom: 55.8%; width: 0.58vw; margin-left: -0.29vw; aspect-ratio: 100 / 121;
+  transform: translateY(100vh); transition-delay: 0.11s;
+}
+.hero-slide--volcano-debris21 {
+  left: 71%; bottom: 55.8%; width: 1.37vw; margin-left: -0.685vw; aspect-ratio: 135 / 287;
+  transform: translateY(100vh); transition-delay: 0.17s;
 }
 
 /* Scene 1 — moon */
 .hero-scene2-sky {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;
+  filter: blur(1px) brightness(0.7);
 }
 .hero-slide--moon { left: 0; right: 0; bottom: -25vh; width: 100%; transform: translateY(100vh); }
 .hero-scene2-moon { display: block; width: 100%; height: auto; object-fit: contain; object-position: bottom; }
@@ -281,7 +343,10 @@ a { color: inherit; }
 .hero-slide--butterfly .hero-float-img {
   animation-duration: calc(3s * var(--speed)); animation-delay: 0.4s;
 }
-/* Same fix as smoke above, for every .hero-float-img user (astronaut, butterfly, rock). */
+/* The texture canvas is masked to a static snapshot of its image's silhouette (see
+   canvas-texture.js) — it doesn't repaint every frame, so an image with its own idle-bob animation
+   would drift away from its mask over time. Giving the canvas the same animation keeps the two
+   moving as one rigid unit, for every .hero-float-img user (astronaut, butterfly, rock, ufo). */
 .hero-float-img + .hero-texture-canvas { animation: floaty calc(3.6s * var(--speed)) ease-in-out infinite; }
 .hero-slide--butterfly .hero-float-img + .hero-texture-canvas {
   animation-duration: calc(3s * var(--speed)); animation-delay: 0.4s;
@@ -300,13 +365,71 @@ a { color: inherit; }
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;
 }
 .hero-slide--rock {
-  left: 50%; bottom: 18%; width: 22%; margin-left: -11%; aspect-ratio: 771 / 1024;
+  left: 50%; bottom: 2%; width: 35%; margin-left: -18%; aspect-ratio: 771 / 1024;
   transform: translateY(100vh); transition-delay: 0.2s;
 }
 .hero-scene3-rock-img { display: block; object-fit: contain; }
 
+/* Scene 3 — UFO field */
+.hero-scene4-bg {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;
+}
+.hero-scene4-cloud-img, .hero-scene4-field-img, .hero-scene4-light-img, .hero-scene4-ufo-img {
+  display: block; width: 100%; height: 100%; object-fit: contain;
+}
+
+.hero-slide--cloud {
+  left: 44%; bottom: 40%; width: 58.5vw; margin-left: -29.25vw; aspect-ratio: 5500 / 3000;
+  transform: translateY(100vh); transition-delay: 0.05s;
+}
+.hero-slide--field {
+  left: 0; bottom: 0; width: 100%; margin-left: 0; aspect-ratio: 1920 / 433;
+  transform: translateY(100vh); transition-delay: 0.1s;
+}
+.hero-slide--light {
+  left: 36%; bottom: -6%; width: 35.2vw; height: 92.8vh; margin-left: -17.6vw;
+  opacity: 0.45; transform: translateY(100vh); transition-delay: 0.2s;
+}
+@keyframes lightFlicker {
+  0%, 100% { opacity: 1; }
+  4% { opacity: 0.35; }
+  9% { opacity: 1; }
+  14% { opacity: 0.6; }
+  18% { opacity: 1; }
+  33% { opacity: 0.25; }
+  38% { opacity: 1; }
+  52% { opacity: 0.55; }
+  57% { opacity: 1; }
+  71% { opacity: 0.15; }
+  76% { opacity: 1; }
+  88% { opacity: 0.45; }
+  92% { opacity: 1; }
+}
+.hero-scene4-light-img {
+  animation: lightFlicker 3.7s steps(1) infinite, floaty calc(3.6s * var(--speed)) ease-in-out infinite;
+}
+.hero-scene4-light-img + .hero-texture-canvas { animation: floaty calc(3.6s * var(--speed)) ease-in-out infinite; }
+.hero-slide--ufo {
+  left: 36%; bottom: 68%; width: 19.8vw; margin-left: -9.9vw; aspect-ratio: 800 / 450;
+  transform: translateY(100vh); transition-delay: 0.3s;
+}
+.hero-slide--ufo2 {
+  left: 16%; bottom: 64%; width: 9vw; margin-left: -4.5vw; aspect-ratio: 800 / 450;
+  transform: translateY(100vh); transition-delay: 0.25s;
+}
+.hero-slide--ufo3 {
+  left: 72%; bottom: 64%; width: 13vw; margin-left: -6.5vw; aspect-ratio: 800 / 450;
+  transform: translateY(100vh); transition-delay: 0.25s;
+}
+.hero-slide--ufo2 .hero-float-img, .hero-slide--ufo3 .hero-float-img {
+  animation-duration: calc(5.2s * var(--speed)); animation-delay: 0.5s;
+}
+.hero-slide--ufo2 .hero-float-img + .hero-texture-canvas, .hero-slide--ufo3 .hero-float-img + .hero-texture-canvas {
+  animation-duration: calc(5.2s * var(--speed)); animation-delay: 0.5s;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-smoke-img, .hero-float-img, .hero-texture-canvas { animation: none; }
+  .hero-float-img, .hero-texture-canvas { animation: none; }
   .hero-slide { transform: none !important; transition: none !important; }
   .hero-slide--sky { opacity: 1 !important; }
   .hero-text { transform: none !important; }
@@ -320,26 +443,76 @@ a { color: inherit; }
 .hero-text {
   position: absolute; inset: 0; z-index: 1;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
-  padding: 0 6%; pointer-events: none;
-  opacity: 0; transform: translateY(28px);
+  padding: 0 14%; pointer-events: none;
+  opacity: 0; transform: translateY(-100vh);
   transition: opacity var(--scene-duration) var(--scene-ease), transform var(--scene-duration) var(--scene-ease);
 }
 .hero:has(.hero-scene[data-scene="0"].is-active) .hero-text[data-hero-text="0"],
 .hero:has(.hero-scene[data-scene="1"].is-active) .hero-text[data-hero-text="1"],
-.hero:has(.hero-scene[data-scene="2"].is-active) .hero-text[data-hero-text="2"] {
+.hero:has(.hero-scene[data-scene="2"].is-active) .hero-text[data-hero-text="2"],
+.hero:has(.hero-scene[data-scene="3"].is-active) .hero-text[data-hero-text="3"] {
   opacity: 1; transform: translateY(0);
 }
+.hero-text[data-hero-text="0"] { padding-left: 18%; padding-right: 26%; padding-top: 34vh; align-items: flex-start; }
+.hero-text[data-hero-text="1"] { padding-left: 18%; padding-right: 22%; }
+.hero-text[data-hero-text="1"],
+.hero-text[data-hero-text="2"],
+.hero-text[data-hero-text="3"] { transform: translateY(100vh); }
+.hero-text--center-bottom { display: block; padding: 0; }
+.hero-text--center-bottom .hero-text-main {
+  position: absolute; top: 38%; left: 50%; transform: translate(-50%, -50%);
+  text-align: left; max-width: 70%; color: #26282b; font-size: clamp(42px, 7vw, 84px);
+}
+.hero-text--center-bottom .hero-text-sub {
+  position: absolute; right: 14%; bottom: 24%; max-width: 32%; font-size: clamp(15px, 1.7vw, 20px);
+}
+.hero-cta-black {
+  position: absolute; right: 14%; bottom: 17.5%; pointer-events: auto;
+  padding: 12px 28px; border-radius: var(--radius-pill);
+  background: #26282b; color: #ffffff; text-decoration: none;
+  font-family: 'Alpino', var(--font-mono); font-size: 16px; font-weight: 600; letter-spacing: 0.5px;
+  transition: background 0.2s ease;
+}
+.hero-cta-black:hover { background: #363a3e; }
+
+.hero-scene-nav {
+  position: absolute; right: 24px; bottom: 24px; z-index: 2;
+  display: flex; gap: 10px;
+}
+.hero-scene-nav-btn {
+  width: 44px; height: 44px; border-radius: var(--radius-pill);
+  border: 1.5px solid #ffffff; background: transparent; color: #ffffff;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background 0.2s ease;
+}
+.hero-scene-nav-btn:hover { background: rgba(255,255,255,0.15); }
+.hero-scene-nav-btn svg { width: 20px; height: 20px; }
 .hero-text-main {
   font-family: var(--font-hero-soft); font-weight: 700; color: #ffffff;
   font-size: clamp(28px, 4.5vw, 56px); line-height: 1.08; max-width: 55%; min-width: 0;
-  overflow-wrap: break-word; text-shadow: 0 2px 20px rgba(0,0,0,0.45);
+  overflow-wrap: break-word; text-shadow: 0 2px 20px rgba(0,0,0,0.45); text-align: left;
 }
 .hero-text-sub {
   font-family: var(--font-hero-soft); font-weight: 500; color: #ffffff;
   font-size: clamp(13px, 1.4vw, 17px); line-height: 1.5; max-width: 30%; min-width: 0;
   overflow-wrap: break-word; text-align: right; text-shadow: 0 2px 14px rgba(0,0,0,0.45);
 }
-.hero-text--single .hero-text-main { max-width: 70%; }
+.hero-text[data-hero-text="0"] .hero-text-main,
+.hero-text[data-hero-text="1"] .hero-text-main,
+.hero-text[data-hero-text="2"] .hero-text-main,
+.hero-text[data-hero-text="3"] .hero-text-main { font-family: 'Alpino', var(--font-hero-soft); font-weight: 700; }
+.hero-text[data-hero-text="0"] .hero-text-main { font-size: clamp(38px, 6vw, 76px); position: relative; top: 2.5vh; }
+html[lang="en"] .hero-text[data-hero-text="0"] .hero-text-main { top: -3.5vh; }
+html[lang="en"] .hero-text--center-bottom .hero-text-main { white-space: nowrap; }
+.hero-text[data-hero-text="0"] .hero-text-sub { font-size: clamp(15px, 1.7vw, 20px); position: relative; top: 5.5vh; }
+.hero-text[data-hero-text="1"] .hero-text-main { font-size: clamp(38px, 6vw, 76px); position: relative; top: -4.5vh; }
+.hero-text[data-hero-text="1"] .hero-text-sub { font-size: clamp(15px, 1.7vw, 20px); position: relative; top: 4.5vh; max-width: 44%; }
+.hero-text[data-hero-text="2"] .hero-text-main { font-size: clamp(38px, 6vw, 76px); position: relative; top: -4.5vh; }
+.hero-text[data-hero-text="2"] .hero-text-sub { font-size: clamp(15px, 1.7vw, 20px); position: relative; top: 4.5vh; }
+.hero-text[data-hero-text="0"] .hero-text-sub,
+.hero-text[data-hero-text="1"] .hero-text-sub,
+.hero-text[data-hero-text="2"] .hero-text-sub,
+.hero-text[data-hero-text="3"] .hero-text-sub { font-family: 'Alpino', var(--font-hero-soft); font-weight: 400; }
 @media (max-width: 640px) {
   .hero-text { flex-direction: column; align-items: flex-start; gap: 10px; }
   .hero-text-main, .hero-text-sub { max-width: 100%; text-align: left; }
@@ -356,131 +529,72 @@ a { color: inherit; }
   font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px; color: var(--accent2);
   text-transform: uppercase; margin-bottom: 12px;
 }
-.eyebrow.small { margin-bottom: 20px; }
-.section-head h2, .about h2, .projects h2, .booking h2 {
+.section-head h2, .projects h2 {
   font-family: var(--font-heading); font-weight: 700; font-size: clamp(28px, 4vw, 44px); margin: 0; color: var(--text-primary);
 }
-.booking-sub { color: var(--text-muted); max-width: 520px; margin: 16px auto 0; font-size: 15px; line-height: 1.6; font-family: var(--font-body); }
-
-/* About */
-.about { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 100px 24px; overflow: hidden; scroll-margin-top: 0px; }
-.about-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: start; position: relative; z-index: 1; }
-@media (min-width: 860px) { .about-grid { grid-template-columns: minmax(240px, 340px) 1fr; } }
-
-.profile-card {
-  border: 1px solid var(--hairline-color); border-radius: var(--radius); padding: 32px;
-  background: var(--panel-bg); backdrop-filter: blur(10px); position: relative;
-}
-.avatar {
-  width: 140px; height: 140px; margin: 0 auto 24px; position: relative;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: var(--avatar-bg); display: flex; align-items: center; justify-content: center;
-  border: 2px solid var(--accent-faint); box-shadow: var(--glow);
-  font-family: var(--font-heading); font-size: 40px; font-weight: 700; color: var(--accent);
-}
-.profile-card h3 { text-align: center; font-family: var(--font-heading); font-size: 20px; margin: 0 0 4px; }
-.profile-card .role {
-  text-align: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--accent-soft);
-  text-transform: uppercase; margin: 0 0 24px;
-}
-.vitals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.vital {
-  border: 1px solid var(--hairline-color); border-radius: var(--radius-sm); padding: 14px 10px;
-  text-align: center; background: var(--panel-bg-faint);
-}
-.vital-value { font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--ok); }
-.vital-label {
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px; color: var(--text-faint);
-  text-transform: uppercase; margin-top: 4px;
-}
-
-.bio { font-size: 16px; line-height: 1.75; color: var(--text-muted); margin: 0 0 32px; font-family: var(--font-body); }
-
-.skills-radial { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 20px; }
-.skill-gauge { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.dial {
-  width: 84px; height: 84px; border-radius: 50%;
-  background: conic-gradient(var(--accent) 0deg, var(--track-bg) 0deg);
-  display: flex; align-items: center; justify-content: center; box-shadow: var(--glow);
-  transition: background 1.2s cubic-bezier(0.16,1,0.3,1);
-}
-.skill-gauge.visible .dial { background: conic-gradient(var(--accent) calc(var(--lvl) * 3.6deg), var(--track-bg) 0deg); }
-.dial-inner {
-  width: 62px; height: 62px; border-radius: 50%; background: #1a1a1a;
-  display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 13px; color: var(--accent);
-}
-.skill-name { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.5px; color: var(--text-secondary); text-align: center; }
 
 /* Projects */
-.projects { position: relative; z-index: 1; max-width: 1220px; margin: 0 auto; padding: 100px 24px; scroll-margin-top: 0px; }
-.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 28px; }
-.project-card {
-  border: 1px solid var(--hairline-color); border-radius: var(--radius); padding: 28px;
-  background: var(--panel-bg-faint); position: relative; overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex; flex-direction: column;
+/* Full-bleed dark backdrop so this section visually covers the sticky hero as it scrolls up over it
+   (box-shadow spread paints the color past the section's own max-width box; clip-path stops that
+   oversized shadow from causing horizontal overflow). */
+.projects {
+  position: relative; z-index: 1; max-width: 1220px; margin: 0 auto; padding: 100px 24px; scroll-margin-top: 0px;
+  background: #1a1a1a; box-shadow: 0 0 0 100vmax #1a1a1a; clip-path: inset(0 -100vmax);
 }
-.project-card:hover { border-color: var(--accent); transform: translateY(-6px); box-shadow: var(--glow-strong); }
-.project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-.project-icon {
-  width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--icon-bg);
-  display: flex; align-items: center; justify-content: center; font-size: 20px;
-}
-.status {
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
-  padding: 6px 12px; border-radius: var(--radius-pill); border: 1px solid currentColor;
-}
-.status-online { color: #39ff88; background: rgba(57,255,136,0.08); }
-.status-progress { color: #e3e3e3; background: rgba(227,227,227,0.08); }
-.status-maintenance { color: #f5a623; background: rgba(245,166,35,0.08); }
-.project-card h3 { font-family: var(--font-heading); font-size: 20px; margin: 0 0 10px; }
-.project-card p { font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 0 0 20px; min-height: 66px; font-family: var(--font-body); }
-.stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-.stack span {
-  font-family: var(--font-mono); font-size: 11px; padding: 5px 10px; border-radius: var(--radius-sm);
-  background: var(--chip-bg); color: var(--text-secondary); border: 1px solid var(--hairline-color);
-}
-.project-link {
-  text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono);
-  font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent);
-  border-top: 1px solid var(--hairline-color); padding-top: 18px; margin-top: auto;
+.projects-header { max-width: 500px; margin: 0 auto 40px; text-align: center; }
+.projects-header h2 { line-height: 1.08; }
+.projects-header p {
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: #a0a0a0; margin: 16px 0 0;
 }
 
-/* Booking */
-.booking { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 100px 24px; scroll-margin-top: 0px; }
-.calendar-card {
-  border: 1px solid var(--hairline-color); border-radius: var(--radius); padding: 36px;
-  background: var(--panel-bg); backdrop-filter: blur(14px); position: relative; overflow: hidden;
-}
-.calendar-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%;
-  background: linear-gradient(transparent, var(--accent-tint), transparent);
-  animation: scanline calc(5s * var(--speed)) linear infinite; pointer-events: none;
-}
-.calendar-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; position: relative; z-index: 1; }
-.calendar-month { font-family: var(--font-heading); font-size: 18px; font-weight: 600; }
-.available-tag {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--ok); text-transform: uppercase;
-  display: flex; align-items: center; gap: 6px;
-}
-.cal-embed {
-  width: 100%; min-height: 640px; margin-bottom: 28px; position: relative; z-index: 1;
-  border-radius: var(--radius-sm); overflow: hidden; background: var(--panel-bg-faint);
+.project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 900px) { .project-grid { grid-template-columns: 1fr; } }
+
+.project-window {
+  display: flex; flex-direction: column; text-decoration: none; color: inherit;
+  border-radius: var(--radius); overflow: hidden; background: #14161a;
   border: 1px solid var(--hairline-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-@media (max-width: 640px) {
-  .cal-embed { min-height: 780px; }
+.project-window:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.45); }
+
+.window-titlebar {
+  display: flex; align-items: center; padding: 10px 12px; background: #1a1a1a;
+  border-bottom: 1px solid var(--hairline-color);
 }
-.calendar-footer {
-  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
-  border-top: 1px solid var(--hairline-color); padding-top: 24px; position: relative; z-index: 1;
+.window-dots { display: flex; gap: 6px; flex: 0 0 auto; }
+.window-dot { width: 8px; height: 8px; border-radius: 50%; }
+.window-dot--red { background: #ff5f57; }
+.window-dot--yellow { background: #febc2e; }
+.window-dot--green { background: #28c840; }
+.window-domain {
+  flex: 1; text-align: center; font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+  padding: 3px 10px; margin: 0 30px; border: 1px solid var(--hairline-color); border-radius: var(--radius-pill);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.selected-slot { font-family: var(--font-mono); font-size: 13px; color: var(--text-secondary); }
-.selected-slot span { color: var(--accent); }
-.booking-cta { padding: 14px 28px; font-size: 12px; white-space: normal; text-align: center; }
+
+.window-preview { aspect-ratio: 16 / 10; overflow: hidden; }
+.window-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.project-meta { padding: 12px 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.project-label {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-faint);
+}
+.project-name { font-family: var(--font-heading); font-weight: 700; font-size: 15px; margin-top: 3px; }
+.project-view {
+  display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-muted); white-space: nowrap; transition: color 0.2s ease;
+}
+.project-view svg { transition: transform 0.2s ease; }
+.project-window:hover .project-view { color: #ffffff; }
+.project-window:hover .project-view svg { transform: translate(2px, -2px); }
 
 /* Contact */
-.contact { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 100px 24px; scroll-margin-top: 0px; }
+/* Same full-bleed backdrop as .projects — the sticky hero can keep showing through any section
+   after it that doesn't paint its own opaque background over the full viewport width. */
+.contact {
+  position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 100px 24px; scroll-margin-top: 0px;
+  background: #1a1a1a; box-shadow: 0 0 0 100vmax #1a1a1a; clip-path: inset(0 -100vmax);
+}
 .contact-sub { color: var(--text-muted); max-width: 480px; margin: 16px auto 0; font-size: 15px; line-height: 1.6; font-family: var(--font-body); }
 .contact-card {
   border: 1px solid var(--hairline-color); border-radius: var(--radius); padding: 36px;
@@ -503,13 +617,8 @@ a { color: inherit; }
 .contact-submit { align-self: flex-start; padding: 14px 32px; font-size: 12px; border: none; cursor: pointer; }
 
 /* Footer */
-.footer { position: relative; z-index: 1; border-top: 1px solid var(--hairline-color); margin-top: 60px; padding: 56px 24px 32px; overflow: hidden; }
-.footer-planet {
-  position: absolute; bottom: -30px; right: 6%; width: 70px; height: 70px; border-radius: 50%;
-  background: radial-gradient(circle at 32% 30%, var(--planet-core-from), var(--planet-core-to) 72%);
-  box-shadow: 0 0 30px var(--accent-faint); opacity: 0.7; z-index: 0;
-}
-.footer-inner { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; position: relative; z-index: 1; }
+.footer { position: relative; z-index: 1; background: #1a1a1a; border-top: 1px solid var(--hairline-color); padding: 60px 24px 28px; overflow: hidden; }
+.footer-inner { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 1; }
 .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
 .socials { display: flex; gap: 20px; }
 .socials a {
@@ -523,3 +632,8 @@ a { color: inherit; }
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.5px; color: var(--text-faint);
 }
 .footer-bottom span:first-child { display: flex; align-items: center; gap: 8px; }
+.footer-email {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.5px; color: var(--text-faint);
+}
+.footer-email a { color: inherit; text-decoration: none; }
+.footer-email a:hover { color: var(--accent); }

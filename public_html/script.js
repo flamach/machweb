@@ -1,64 +1,4 @@
 (() => {
-  const SPEED = 1.25;
-  const STAR_DENSITY = 0.25;
-
-  // Starfield
-  const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const count = Math.floor((canvas.width * canvas.height) / 6000 * STAR_DENSITY);
-    stars = new Array(count).fill(0).map(() => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.4 + 0.3,
-      speed: (Math.random() * 0.15 + 0.02) * SPEED,
-      phase: Math.random() * Math.PI * 2,
-      variant: Math.random(),
-    }));
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  let t = 0;
-  function draw() {
-    t += 0.016;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    stars.forEach(s => {
-      s.y += s.speed;
-      if (s.y > canvas.height) s.y = 0;
-      const twinkle = 0.5 + 0.5 * Math.sin(t * 1.5 + s.phase);
-      ctx.globalAlpha = 0.3 + twinkle * 0.7;
-      ctx.fillStyle = s.variant > 0.9 ? '#f2571f' : '#ffffff';
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(draw);
-  }
-  draw();
-
-  // Skill gauges — animate on scroll into view
-  const skillGauges = document.querySelectorAll('.skill-gauge');
-  const aboutSection = document.getElementById('about');
-  const gaugeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        skillGauges.forEach(g => {
-          const level = g.dataset.level;
-          g.style.setProperty('--lvl', level);
-          requestAnimationFrame(() => g.classList.add('visible'));
-        });
-        gaugeObserver.disconnect();
-      }
-    });
-  }, { threshold: 0.25 });
-  if (aboutSection) gaugeObserver.observe(aboutSection);
-
   // Hero parallax — scroll (translateY) + mouse (translateX), depth read from each layer's data-depth.
   // Layers from every scene are driven by the same loop; hidden scenes just move invisibly (cheap, no branching).
   const heroScenesEl = document.getElementById('hero-scenes');
@@ -123,12 +63,20 @@
     // .hero-slide transform to stay hidden; belt-and-suspenders per the astronaut/butterfly bug.
     scenes.forEach((s, i) => { s.style.visibility = i === activeIndex ? 'visible' : 'hidden'; });
 
-    function slideLayersOf(sceneEl) { return Array.from(sceneEl.querySelectorAll('.hero-slide')); }
+    // The per-scene headline (.hero-text, kept outside .hero-scene so the existing :has() opacity
+    // rule can target it — see its own comment) is pulled in here so it rides the same
+    // enter/exit transform as that scene's visual layers.
+    function slideLayersOf(sceneEl) {
+      const layers = Array.from(sceneEl.querySelectorAll('.hero-slide'));
+      const heroText = document.querySelector(`.hero-text[data-hero-text="${sceneEl.dataset.scene}"]`);
+      if (heroText) layers.push(heroText);
+      return layers;
+    }
 
-    // Scrolling back up mirrors the SKY's sweep top<->bottom (the only layer whose enter/exit
-    // sides differ) instead of always sweeping down — negate the vh sign on its authored transform.
-    // Every other layer (volcano, moon, astronaut, butterfly, rock, smoke) keeps a single fixed
-    // direction regardless of scroll direction, as before.
+    // Scrolling back up mirrors some layers' sweep (direction flips via data-directional, or always
+    // for the sky) instead of always sweeping the same way — negate the vh sign on its authored
+    // transform. Layers without data-directional (or data-fade) keep a single fixed direction
+    // regardless of scroll direction.
     function flipY(transform) {
       return transform.replace(/translateY\(\s*(-?[\d.]+)vh\s*\)/, (m, n) => `translateY(${-parseFloat(n)}vh)`);
     }
@@ -145,8 +93,8 @@
       const toReset = layers.filter(el => el.dataset.enterTransform);
       if (toReset.length) {
         toReset.forEach(el => {
-          const isSky = el.dataset.fade !== undefined;
-          const pos = isSky && direction === -1 ? flipY(el.dataset.enterTransform) : el.dataset.enterTransform;
+          const flips = el.dataset.fade !== undefined || el.dataset.directional !== undefined;
+          const pos = flips && direction === -1 ? flipY(el.dataset.enterTransform) : el.dataset.enterTransform;
           el.style.transition = 'none'; el.style.transform = pos;
         });
         void sceneEl.offsetHeight; // force reflow so the instant reset commits before transitions resume
@@ -172,8 +120,8 @@
     }
     function exitScene(sceneEl, direction = 1) {
       slideLayersOf(sceneEl).forEach(el => {
-        const isSky = el.dataset.fade !== undefined;
-        el.style.transform = isSky && direction === -1 ? flipY(el.dataset.exitTransform) : el.dataset.exitTransform;
+        const flips = el.dataset.fade !== undefined || el.dataset.directional !== undefined;
+        el.style.transform = flips && direction === -1 ? flipY(el.dataset.exitTransform) : el.dataset.exitTransform;
         if (el.dataset.fade !== undefined) {
           el.style.opacity = '0';
           const img = el.querySelector('.hero-layer');
@@ -189,9 +137,9 @@
       }, SCENE_DURATION_MS);
     }
 
-    function goToScene(index) {
+    function goToScene(index, directionOverride) {
       if (index < 0 || index >= scenes.length || index === activeIndex || locked) return;
-      const direction = index > activeIndex ? 1 : -1;
+      const direction = directionOverride || (index > activeIndex ? 1 : -1);
       exitScene(scenes[activeIndex], direction);
       scenes[activeIndex].classList.remove('is-active');
       scenes[index].classList.add('is-active');
@@ -201,7 +149,33 @@
         locked = true;
         setTimeout(() => { locked = false; }, SCENE_LOCK_MS);
       }
+      scheduleAutoAdvance();
     }
+
+    // Wraps from the last scene back to the first, forcing a forward direction so the loop always
+    // reads as continuing forward instead of the last scene "reversing" into the first.
+    function goNext() {
+      if (activeIndex === scenes.length - 1) goToScene(0, 1);
+      else goToScene(activeIndex + 1);
+    }
+
+    // Auto-advance every AUTO_ADVANCE_MS, looping past the last scene. Any manual navigation
+    // (goToScene, called from every input path below) re-arms the timer via scheduleAutoAdvance.
+    // Paused whenever the user has scrolled past the hero — otherwise it keeps cycling scenes (and
+    // setting `locked`) off-screen, which the wheel listener below would misread as a reason to
+    // block the page's normal scroll even though the hero isn't what's being scrolled anymore.
+    const AUTO_ADVANCE_MS = 6000;
+    let autoAdvanceTimer = null;
+    function scheduleAutoAdvance() {
+      if (reduceMotion) return;
+      clearTimeout(autoAdvanceTimer);
+      if (window.scrollY > SCROLL_TOP_TOLERANCE) return;
+      autoAdvanceTimer = setTimeout(goNext, AUTO_ADVANCE_MS);
+    }
+    window.addEventListener('scroll', () => {
+      if (window.scrollY <= SCROLL_TOP_TOLERANCE) scheduleAutoAdvance();
+      else clearTimeout(autoAdvanceTimer);
+    }, { passive: true });
 
     // First-load entrance for the initially active scene (double rAF: let the off-screen default
     // position commit to a frame first, so the move to translateY(0) is actually observed as a change).
@@ -219,8 +193,8 @@
       }, { passive: true });
     } else {
       window.addEventListener('wheel', (e) => {
-        if (locked) { e.preventDefault(); return; }
         if (window.scrollY > SCROLL_TOP_TOLERANCE) return;
+        if (locked) { e.preventDefault(); return; }
         if (e.deltaY > 0 && activeIndex < scenes.length - 1) {
           e.preventDefault();
           goToScene(activeIndex + 1);
@@ -248,5 +222,119 @@
         }
       }, { passive: false });
     }
+
+    const prevBtn = document.getElementById('hero-scene-prev');
+    const nextBtn = document.getElementById('hero-scene-next');
+    if (prevBtn) prevBtn.addEventListener('click', () => goToScene(activeIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', goNext);
+
+    scheduleAutoAdvance();
   }
+})();
+
+// Side nav — computes the scroll position itself (instead of a plain hash jump) so the target
+// section's top lands just past the viewport top, regardless of the sticky hero above it. The
+// small SCROLL_OFFSET nudges the landing spot down a bit so a section whose content exactly fills
+// one screen doesn't clip its last row against the bottom edge.
+(() => {
+  const SCROLL_OFFSET = 90; // px scrolled past the section's exact top
+  document.querySelectorAll('.side-nav-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      // #hero is the very top of the page — land on it exactly, no offset, no rect math needed.
+      if (href === '#hero') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+      const top = target.getBoundingClientRect().top + window.scrollY + SCROLL_OFFSET;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+})();
+
+// Projects grid — each card is a fake macOS browser window, data-driven so new projects are just
+// a new entry here. image is a URL string; when omitted, bg (any CSS background value) shows instead.
+(() => {
+  const PROJECTS = [
+    {
+      domain: 'auvieuxsinge.fr',
+      link: '/demos/auvieuxsinge/',
+      bg: 'linear-gradient(135deg, #3a2415, #6b3f1d)',
+      image: 'demos/auvieuxsinge/ce_vieux_singe.png',
+      name: 'Au Vieux Singe',
+      label: { en: 'Neighborhood brasserie', fr: 'Brasserie de quartier' },
+      overlayTitle: { en: 'Since 1966', fr: 'Depuis 1966' },
+      overlaySub: { en: 'Menu, karaoke nights & seasonal dining.', fr: 'Carte, soirées karaoké et cuisine de saison.' },
+      viewLabel: { en: 'View demo', fr: 'Voir la démo' },
+    },
+    {
+      domain: 'domainelemeandre.fr',
+      link: 'https://github.com/flamach/LeMeandre',
+      bg: 'linear-gradient(135deg, #16302a, #295c46)',
+      image: 'demos/ce_lemeandre.png',
+      name: 'Le Méandre',
+      label: { en: 'Family estate', fr: 'Domaine familial' },
+      overlayTitle: { en: 'Stay, dine, unwind', fr: 'Séjourner, dîner, respirer' },
+      overlaySub: { en: 'Restaurant, gîtes & spa, bilingual FR/EN.', fr: 'Restaurant, gîtes et spa, bilingue FR/EN.' },
+      viewLabel: { en: 'View code', fr: 'Voir le code' },
+    },
+    {
+      domain: 'poolbuilder.fr',
+      link: '/demos/pool/',
+      bg: 'linear-gradient(135deg, #0d2b3a, #1b5c78)',
+      image: 'demos/pool/ce_lame_pool.png',
+      name: 'Lame Pool',
+      label: { en: 'Custom pool builder', fr: 'Constructeur de piscines' },
+      overlayTitle: { en: 'From ground to water', fr: "Du jardin nu à l'eau" },
+      overlaySub: { en: 'Scroll-scrubbed hero, bare garden to full pool.', fr: 'Animation hero pilotée par le scroll.' },
+      viewLabel: { en: 'View demo', fr: 'Voir la démo' },
+    },
+    {
+      domain: 'kmiepiercings.fr',
+      link: '/demos/kmie_piercings/',
+      bg: 'linear-gradient(135deg, #2b1720, #6e3648)',
+      image: 'demos/kmie_piercings/ce_kmie_piercing.png',
+      name: 'Kmie Piercings',
+      label: { en: 'Piercing studio', fr: 'Studio de piercing' },
+      overlayTitle: { en: 'Curated ear, by appointment', fr: 'Oreille sur mesure, sur rendez-vous' },
+      overlaySub: { en: 'Gold & silver jewelry, made in Lille.', fr: 'Bijoux dorés et argentés, à Lille.' },
+      viewLabel: { en: 'View demo', fr: 'Voir la démo' },
+    },
+  ];
+
+  const grid = document.getElementById('project-grid');
+  if (!grid) return;
+
+  const ARROW_SVG = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>';
+
+  function render() {
+    const lang = document.documentElement.lang === 'fr' ? 'fr' : 'en';
+    grid.innerHTML = PROJECTS.map(p => `
+      <a class="project-window" href="${p.link}" target="_blank" rel="noopener">
+        <div class="window-titlebar">
+          <div class="window-dots">
+            <span class="window-dot window-dot--red"></span>
+            <span class="window-dot window-dot--yellow"></span>
+            <span class="window-dot window-dot--green"></span>
+          </div>
+          <span class="window-domain">${p.domain}</span>
+        </div>
+        <div class="window-preview" style="background:${p.bg}">
+          ${p.image ? `<img src="${p.image}" alt="" loading="lazy">` : ''}
+        </div>
+        <div class="project-meta">
+          <div>
+            <div class="project-label">${p.label[lang]}</div>
+            <div class="project-name">${p.name}</div>
+          </div>
+          <span class="project-view">${p.viewLabel[lang]} ${ARROW_SVG}</span>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  render();
+  // i18n.js owns the language toggle; defer to a fresh macrotask so document.documentElement.lang
+  // has already been updated by its own click handler before we re-render off of it.
+  document.getElementById('lang-toggle')?.addEventListener('click', () => setTimeout(render, 0));
 })();

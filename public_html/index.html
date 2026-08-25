@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <title data-i18n="page.title">Quentin Machado — Full-Stack Web Developer</title>
@@ -15,18 +15,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=65">
+<link rel="stylesheet" href="style.css?v=127">
 </head>
 <body>
 
-<canvas id="starfield"></canvas>
 <div class="grid-overlay"></div>
 <div class="scan-overlay"></div>
 
 <a href="#hero" class="site-brand" aria-label="Flamach.dev">
   <img src="input/logo_light_transludent.png" alt="" class="site-brand-logo">
-  <span class="site-brand-text">FLAMACH<span class="accent">.</span><span class="accent">DEV</span></span>
+  <span class="site-brand-text">FLAMACH<span class="accent">DEV</span></span>
 </a>
+
+<button id="lang-toggle" class="lang-toggle" type="button" aria-label="Switch to French">
+  <span id="lang-toggle-label">FR</span>
+</button>
+
+<nav class="side-nav" aria-label="Sections">
+  <a href="#hero" class="side-nav-link">Flamach Dev</a>
+  <a href="#projects" class="side-nav-link" data-i18n="projects.eyebrow">Demos</a>
+  <a href="#contact" class="side-nav-link">Contact</a>
+</nav>
 
 <section id="hero" class="hero">
   <div class="hero-scenes" id="hero-scenes" aria-hidden="true">
@@ -39,23 +48,135 @@
 
         <div class="hero-slide hero-slide--sky" data-enter-transform="translateY(-100vh) scale(1.06)" data-exit-transform="translateY(100vh) scale(1.06)" data-fade>
           <div class="hero-layer hero-tex-wrap hero-sky-mask-enter" data-depth="0">
-            <img src="input/animations/anim_1/night_sky.jpeg" alt="" class="hero-layer--sky">
+            <img src="input/animations/anim_1/volcano.jpg" alt="" class="hero-layer--sky">
             <canvas class="hero-texture-canvas" data-texture></canvas>
           </div>
         </div>
 
-        <div class="hero-scene1-ground">
-          <div class="hero-slide hero-slide--volcano" data-exit-transform="translateY(100vh)">
-            <div class="hero-layer hero-tex-wrap" data-depth="0.25" data-mouse-parallax="none">
-              <img src="input/animations/anim_1/volcan.png" alt="" class="hero-layer--volcano">
-              <canvas class="hero-texture-canvas" data-texture></canvas>
-            </div>
+        <div class="hero-slide hero-slide--volcano-debris1" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.15" data-mouse-parallax="0.25">
+            <img src="input/animations/anim_1/debris1.png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
           </div>
-          <div class="hero-slide hero-slide--smoke" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
-            <div class="hero-layer hero-layer--smoke" data-depth="0.7" data-mouse-parallax="0.5">
-              <img src="input/animations/anim_1/smoke_3.png" alt="" class="hero-smoke-img">
-              <canvas class="hero-texture-canvas" data-texture></canvas>
-            </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris2" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris2.png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris3" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris3.png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris4" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.1" data-mouse-parallax="0.15">
+            <img src="input/animations/anim_1/debris4.png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris5" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.18" data-mouse-parallax="0.3">
+            <img src="input/animations/anim_1/debris5.png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris6" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.1" data-mouse-parallax="0.15">
+            <img src="input/animations/anim_1/debris6.png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris7" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.08" data-mouse-parallax="0.1">
+            <img src="input/animations/anim_1/debris2 - Copie.png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris8" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris2 - Copie (2).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris9" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris2 - Copie (3).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris10" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.08" data-mouse-parallax="0.1">
+            <img src="input/animations/anim_1/debris2 - Copie (4).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris11" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris3 - Copie.png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris12" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris3 - Copie (2).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris13" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris3 - Copie (3).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris14" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris3 - Copie (4).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris15" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.08" data-mouse-parallax="0.1">
+            <img src="input/animations/anim_1/debris3 - Copie (5).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris16" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.08" data-mouse-parallax="0.1">
+            <img src="input/animations/anim_1/debris3 - Copie (6).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris17" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris3 - Copie (7).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris18" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.08" data-mouse-parallax="0.1">
+            <img src="input/animations/anim_1/debris4 - Copie.png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris19" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.07" data-mouse-parallax="0.1">
+            <img src="input/animations/anim_1/debris4 - Copie (2).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris20" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.06" data-mouse-parallax="0.08">
+            <img src="input/animations/anim_1/debris4 - Copie (3).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--volcano-debris21" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.1" data-mouse-parallax="0.15">
+            <img src="input/animations/anim_1/debris4 - Copie (4).png" alt="" class="hero-float-img hero-scene1-debris-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
           </div>
         </div>
 
@@ -80,14 +201,14 @@
           </div>
         </div>
 
-        <div class="hero-slide hero-slide--astronaut" data-exit-transform="translateY(-100vh)">
+        <div class="hero-slide hero-slide--astronaut" data-directional data-exit-transform="translateY(-100vh)">
           <div class="hero-layer hero-float" data-depth="0.3">
             <div class="hero-float-img hero-scene2-astronaut-img"></div>
             <canvas class="hero-texture-canvas" data-texture></canvas>
           </div>
         </div>
 
-        <div class="hero-slide hero-slide--butterfly" data-exit-transform="translateY(-100vh)">
+        <div class="hero-slide hero-slide--butterfly" data-directional data-exit-transform="translateY(-100vh)">
           <div class="hero-layer hero-float" data-depth="0.42">
             <div class="hero-float-img hero-scene2-butterfly-img"></div>
             <canvas class="hero-texture-canvas" data-texture></canvas>
@@ -108,9 +229,63 @@
           </div>
         </div>
 
-        <div class="hero-slide hero-slide--rock" data-exit-transform="translateY(100vh)">
+        <div class="hero-slide hero-slide--rock" data-directional data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
           <div class="hero-layer hero-float" data-depth="0.3">
             <img src="input/animations/anim_3/lavender_rock.png" alt="" class="hero-float-img hero-scene3-rock-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Scene 3 — UFO field -->
+    <div class="hero-scene" data-scene="3">
+      <div class="hero-parallax">
+
+        <div class="hero-slide hero-slide--sky" data-enter-transform="translateY(-100vh) scale(1.06)" data-exit-transform="translateY(100vh) scale(1.06)" data-fade>
+          <div class="hero-layer hero-tex-wrap hero-sky-mask-enter" data-depth="0" data-mouse-parallax="none">
+            <img src="input/animations/anim_4/fond_gris.jpg" alt="" class="hero-scene4-bg">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+
+        <div class="hero-slide hero-slide--cloud" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.05" data-mouse-parallax="0.1">
+            <img src="input/animations/anim_4/cloud.png" alt="" class="hero-float-img hero-scene4-cloud-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+
+        <div class="hero-slide hero-slide--field" data-exit-transform="translateY(100vh)">
+          <div class="hero-layer hero-float" data-depth="0.1" data-mouse-parallax="none">
+            <img src="input/animations/anim_4/man-field_v4.png" alt="" class="hero-scene4-field-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+
+        <div class="hero-slide hero-slide--light" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.15" data-mouse-parallax="0.1">
+            <img src="input/animations/anim_4/light.png" alt="" class="hero-scene4-light-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+
+        <div class="hero-slide hero-slide--ufo2" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.25" data-mouse-parallax="0.3">
+            <img src="input/animations/anim_4/ufo2.png" alt="" class="hero-float-img hero-scene4-ufo-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--ufo3" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.25" data-mouse-parallax="0.3">
+            <img src="input/animations/anim_4/ufo3.png" alt="" class="hero-float-img hero-scene4-ufo-img">
+            <canvas class="hero-texture-canvas" data-texture></canvas>
+          </div>
+        </div>
+        <div class="hero-slide hero-slide--ufo" data-exit-transform="translateY(-100vh)">
+          <div class="hero-layer hero-float" data-depth="0.3" data-mouse-parallax="0.35">
+            <img src="input/animations/anim_4/ufo.png" alt="" class="hero-float-img hero-scene4-ufo-img">
             <canvas class="hero-texture-canvas" data-texture></canvas>
           </div>
         </div>
@@ -122,137 +297,42 @@
 
   <!-- Per-scene headlines — siblings of .hero-scenes (not nested in .hero-scene). Visibility
        still tracks the active scene via :has(), same timing as before. -->
-  <div class="hero-text" data-hero-text="0">
-    <span class="hero-text-main" data-i18n="hero.scene1.title">Need an incredible website</span>
-    <span class="hero-text-sub" data-i18n="hero.scene1.sub">Boost your brand with creativity.</span>
+  <div class="hero-text" data-hero-text="0" data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+    <span class="hero-text-main" data-i18n-html="hero.scene1.title">need<br>amazing<br>content</span>
+    <span class="hero-text-sub" data-i18n-html="hero.scene1.sub">Empowering brands to stand out<br>with strategy, creativity,<br>and unforgettable storytelling.</span>
   </div>
-  <div class="hero-text" data-hero-text="1">
-    <span class="hero-text-main" data-i18n="hero.scene2.title">Exceptional design</span>
-    <span class="hero-text-sub" data-i18n="hero.scene2.sub">We build a memorable identity and elevate your online presence.</span>
+  <div class="hero-text" data-hero-text="1" data-directional data-exit-transform="translateY(-100vh)">
+    <span class="hero-text-main" data-i18n-html="hero.scene2.title">exceptional<br>by design</span>
+    <span class="hero-text-sub" data-i18n-html="hero.scene2.sub">We craft distinct, memorable brand identities<br>that set your business apart<br>and elevate your market presence.</span>
   </div>
-  <div class="hero-text hero-text--single" data-hero-text="2">
-    <span class="hero-text-main" data-i18n-html="hero.scene3.title">Powerful experiences<br>for a unique brand</span>
+  <div class="hero-text" data-hero-text="2" data-directional data-enter-transform="translateY(100vh)" data-exit-transform="translateY(-100vh)">
+    <span class="hero-text-main" data-i18n-html="hero.scene3.title">powerful<br>experiences<br>for unique<br>brands</span>
+    <span class="hero-text-sub" data-i18n="hero.scene3.sub">We design impactful experiences for distinct brands, shaping your identity and amplifying your presence.</span>
   </div>
-</section>
-
-<section id="about" class="about">
-  <div class="section-head">
-    <div class="eyebrow" data-i18n="about.eyebrow">About</div>
-    <h2 data-i18n="about.heading">Who I am</h2>
+  <div class="hero-text hero-text--center-bottom" data-hero-text="3" data-exit-transform="translateY(-100vh)">
+    <span class="hero-text-main" data-i18n="hero.scene4.title">make your brand memorable</span>
+    <span class="hero-text-sub" data-i18n="hero.scene4.sub">From strategy to execution, we build bold, unforgettable identities that amplify visibility and forge deep audience connections.</span>
+    <a href="#contact" class="hero-cta-black" data-i18n="hero.scene4.cta">Let's get started</a>
   </div>
 
-  <div class="about-grid">
-    <div class="profile-card">
-      <div class="avatar">QM</div>
-      <h3>Quentin Machado</h3>
-      <p class="role" data-i18n="about.role">Full-Stack Developer</p>
-      <div class="vitals">
-        <div class="vital"><div class="vital-value">4+</div><div class="vital-label" data-i18n="about.vitalYears">Years XP</div></div>
-        <div class="vital"><div class="vital-value">8</div><div class="vital-label" data-i18n="about.vitalProjects">Projects</div></div>
-        <div class="vital"><div class="vital-value">4</div><div class="vital-label" data-i18n="about.vitalCoffees">Coffees/day</div></div>
-        <div class="vital"><div class="vital-value">99.9%</div><div class="vital-label">Uptime</div></div>
-      </div>
-    </div>
-
-    <div class="about-body">
-      <p class="bio" data-i18n="about.bio">
-        Aboard the web's orbital station for over 4 years, I design interfaces that combine engineering precision with aesthetics. My specialty&nbsp;: turning complex product needs into smooth, fast experiences from end to end.
-      </p>
-
-      <div class="eyebrow small" data-i18n="about.skillsEyebrow">Skills</div>
-
-      <div class="skills-radial" id="skills-radial">
-        <div class="skill-gauge" data-level="90">
-          <div class="dial"><div class="dial-inner"><span>90%</span></div></div>
-          <span class="skill-name">REACT / TYPESCRIPT</span>
-        </div>
-        <div class="skill-gauge" data-level="80">
-          <div class="dial"><div class="dial-inner"><span>80%</span></div></div>
-          <span class="skill-name">UI / UX ENGINEERING</span>
-        </div>
-        <div class="skill-gauge" data-level="75">
-          <div class="dial"><div class="dial-inner"><span>75%</span></div></div>
-          <span class="skill-name">NODE.JS / API</span>
-        </div>
-        <div class="skill-gauge" data-level="80">
-          <div class="dial"><div class="dial-inner"><span>80%</span></div></div>
-          <span class="skill-name">PYTHON / SCRIPTING</span>
-        </div>
-        <div class="skill-gauge" data-level="80">
-          <div class="dial"><div class="dial-inner"><span>80%</span></div></div>
-          <span class="skill-name">DEVOPS / CI-CD</span>
-        </div>
-        <div class="skill-gauge" data-level="70">
-          <div class="dial"><div class="dial-inner"><span>70%</span></div></div>
-          <span class="skill-name" data-i18n="about.skillAI">AI / PROMPTS</span>
-        </div>
-      </div>
-    </div>
+  <div class="hero-scene-nav">
+    <button type="button" id="hero-scene-prev" class="hero-scene-nav-btn" aria-label="Previous animation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+    <button type="button" id="hero-scene-next" class="hero-scene-nav-btn" aria-label="Next animation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
   </div>
 </section>
 
 <section id="projects" class="projects">
-  <div class="section-head">
-    <div class="eyebrow" data-i18n="projects.eyebrow">Projects</div>
-    <h2 data-i18n="projects.heading">Recent projects</h2>
+  <div class="projects-header">
+    <div class="eyebrow" data-i18n="projects.eyebrow">Demos</div>
+    <h2 data-i18n-html="projects.heading">Websites built<br>to last</h2>
+    <p data-i18n="projects.sub">Fast, bespoke interfaces designed around every business and every story.</p>
   </div>
 
-  <div class="project-grid">
-    <article class="project-card">
-      <div class="project-top">
-        <div class="project-icon">🐒</div>
-        <span class="status status-online" data-i18n="projects.statusOnline">● Online</span>
-      </div>
-      <h3>Au Vieux Singe</h3>
-      <p data-i18n="projects.auvieuxsingeDesc">Website for a neighborhood brasserie and restaurant since 1966 — menu, karaoke and blind test nights, and seasonal fine dining at La Table du Vieux Singe.</p>
-      <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-      <a href="/demos/auvieuxsinge/" target="_blank" rel="noopener" class="project-link" data-i18n="projects.viewDemo">View demo ↗</a>
-    </article>
-
-    <article class="project-card">
-      <div class="project-top">
-        <div class="project-icon">🏞️</div>
-        <span class="status status-online" data-i18n="projects.statusOnline">● Online</span>
-      </div>
-      <h3>Le Méandre</h3>
-      <p data-i18n="projects.lemeandreDesc">Showcase site for a family domain — restaurant, gîtes and spa. Bilingual FR/EN, responsive, with an animated loading screen.</p>
-      <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-      <a href="https://github.com/flamach/LeMeandre" target="_blank" rel="noopener" class="project-link" data-i18n="projects.viewCode">View code ↗</a>
-    </article>
-
-    <article class="project-card">
-      <div class="project-top">
-        <div class="project-icon">🏊</div>
-        <span class="status status-online" data-i18n="projects.statusOnline">● Online</span>
-      </div>
-      <h3>Pool</h3>
-      <p data-i18n="projects.poolDesc">Showcase site for a custom pool builder — scroll-scrubbed hero animation taking the garden from bare ground to a filled pool.</p>
-      <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-      <a href="/demos/pool/" target="_blank" rel="noopener" class="project-link" data-i18n="projects.viewDemo">View demo ↗</a>
-    </article>
-  </div>
-</section>
-
-<section id="booking" class="booking">
-  <div class="section-head">
-    <div class="eyebrow" data-i18n="booking.eyebrow">Booking</div>
-    <h2 data-i18n="booking.heading">Book a call</h2>
-    <p class="booking-sub" data-i18n="booking.sub">Book a 30-minute slot to discuss your project.</p>
-  </div>
-
-  <div class="calendar-card">
-    <div class="calendar-head">
-      <span class="calendar-month">Cal.eu · flamach</span>
-      <span class="available-tag"><span class="pulse-dot"></span><span data-i18n="booking.liveTag">Live booking</span></span>
-    </div>
-
-    <div id="cal-booking-embed" class="cal-embed"></div>
-
-    <div class="calendar-footer">
-      <div class="selected-slot" data-i18n-html="booking.poweredBy">Powered by <a href="https://www.cal.eu/flamach/30min" target="_blank" rel="noopener">cal.eu/flamach</a></div>
-      <a href="https://www.cal.eu/flamach/30min" target="_blank" rel="noopener" class="cta booking-cta" data-i18n="booking.openNewTab">Open in new tab</a>
-    </div>
-  </div>
+  <div class="project-grid" id="project-grid"></div>
 </section>
 
 <section id="contact" class="contact">
@@ -262,7 +342,7 @@
     <p class="contact-sub" data-i18n="contact.sub">An email, an idea, a project in mind? Write to me, I reply quickly.</p>
   </div>
 
-  <form class="contact-card" action="https://formsubmit.co/quentin.machado.pro@gmail.com" method="POST">
+  <form class="contact-card" action="https://formsubmit.co/contact@quentin-machado.com" method="POST">
     <input type="hidden" name="_subject" value="New message from flamach.dev">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="false">
@@ -294,70 +374,28 @@
 </section>
 
 <footer class="footer">
-  <div class="footer-planet"></div>
   <div class="footer-inner">
     <div class="footer-top">
       <div class="brand">
-        <span class="brand-orb-sm"></span>
-        FLAMACH<span class="accent">.</span>DEV
+        <img src="input/logo_light_transludent.png" alt="" class="brand-logo-sm">
+        FLAMACH<span class="accent">DEV</span>
       </div>
       <div class="socials">
         <a href="https://github.com/flamach" target="_blank" rel="noopener" aria-label="GitHub">🐙</a>
+        <a href="https://www.instagram.com/flamach.dev" target="_blank" rel="noopener" aria-label="Instagram">📸</a>
         <a href="https://www.linkedin.com/in/quentin-machado" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span><span class="pulse-dot"></span><span data-i18n="footer.available">Available for new projects · 2026</span></span>
-      <span>© 2026 Quentin Machado</span>
+      <span>© 2026 Flamach Dev - Quentin Machado</span>
     </div>
+    <div class="footer-email"><a href="mailto:contact@quentin-machado.com">contact@quentin-machado.com</a></div>
   </div>
 </footer>
 
-<script type="text/javascript">
-  (function (C, A, L) {
-    let p = function (a, ar) { a.q.push(ar); };
-    let d = C.document;
-    C.Cal = C.Cal || function () {
-      let cal = C.Cal;
-      let ar = arguments;
-      if (!cal.loaded) {
-        cal.ns = {};
-        cal.q = cal.q || [];
-        d.head.appendChild(d.createElement("script")).src = A;
-        cal.loaded = true;
-      }
-      if (ar[0] === L) {
-        const api = function () { p(api, arguments); };
-        const namespace = ar[1];
-        api.q = api.q || [];
-        if (typeof namespace === "string") {
-          cal.ns[namespace] = cal.ns[namespace] || api;
-          p(cal.ns[namespace], ar);
-          p(cal, ["initNamespace", namespace]);
-        } else p(cal, ar);
-        return;
-      }
-      p(cal, ar);
-    };
-  })(window, "https://www.cal.eu/embed/embed.js", "init");
-
-  Cal("init", { origin: "https://www.cal.eu" });
-
-  Cal("inline", {
-    elementOrSelector: "#cal-booking-embed",
-    calLink: "flamach/30min",
-    layout: "month_view",
-  });
-
-  Cal("ui", {
-    theme: "dark",
-    styles: { branding: { brandColor: "#f2571f" } },
-    hideEventTypeDetails: false,
-    layout: "month_view",
-  });
-</script>
-<script src="script.js?v=17"></script>
+<script src="script.js?v=36"></script>
 <script src="canvas-texture.js?v=1"></script>
-<script src="i18n.js?v=5"></script>
+<script src="i18n.js?v=17"></script>
 </body>
 </html>
