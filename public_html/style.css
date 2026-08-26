@@ -62,6 +62,7 @@ body {
 ::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 8px; }
 
 a { color: inherit; }
+br.mobile-only { display: none; }
 
 .grid-overlay {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -106,7 +107,9 @@ a { color: inherit; }
   transition: transform 0.25s ease;
 }
 .side-nav-link:hover { transform: translateX(-10px) scale(1.2); text-decoration: underline; }
-@media (max-width: 640px) { .side-nav { display: none; } }
+@media (max-width: 640px) {
+  .side-nav { display: none; }
+}
 
 .brand {
   display: flex; align-items: center; gap: 10px;
@@ -487,6 +490,12 @@ a { color: inherit; }
 }
 .hero-scene-nav-btn:hover { background: rgba(255,255,255,0.15); }
 .hero-scene-nav-btn svg { width: 20px; height: 20px; }
+@media (max-width: 640px) {
+  .hero-scene-nav {
+    left: auto; right: 16px; bottom: auto; top: 50%;
+    flex-direction: column; transform: translateY(-50%);
+  }
+}
 .hero-text-main {
   font-family: var(--font-hero-soft); font-weight: 700; color: #ffffff;
   font-size: clamp(28px, 4.5vw, 56px); line-height: 1.08; max-width: 55%; min-width: 0;
@@ -501,14 +510,19 @@ a { color: inherit; }
 .hero-text[data-hero-text="1"] .hero-text-main,
 .hero-text[data-hero-text="2"] .hero-text-main,
 .hero-text[data-hero-text="3"] .hero-text-main { font-family: 'Alpino', var(--font-hero-soft); font-weight: 700; }
-.hero-text[data-hero-text="0"] .hero-text-main { font-size: clamp(38px, 6vw, 76px); position: relative; top: 2.5vh; }
+/* The 4vw/1.05vw factors below (vs. a rounder 6vw/1.7vw) are tuned, not arbitrary: they keep each
+   <br>-authored line segment fitting its column at every PC width down to ~1024px — a rounder factor
+   hits its clamp() ceiling too early, leaving font-size flat while the %-padded column keeps
+   shrinking, so a segment that fit at 1920px starts wrapping again on a smaller PC screen. Reaches
+   the same 76px/20px ceiling at the reference ~1920px width either way, so nothing changes there. */
+.hero-text[data-hero-text="0"] .hero-text-main { font-size: clamp(38px, 4vw, 76px); position: relative; top: 2.5vh; }
 html[lang="en"] .hero-text[data-hero-text="0"] .hero-text-main { top: -3.5vh; }
 html[lang="en"] .hero-text--center-bottom .hero-text-main { white-space: nowrap; }
-.hero-text[data-hero-text="0"] .hero-text-sub { font-size: clamp(15px, 1.7vw, 20px); position: relative; top: 5.5vh; }
-.hero-text[data-hero-text="1"] .hero-text-main { font-size: clamp(38px, 6vw, 76px); position: relative; top: -4.5vh; }
-.hero-text[data-hero-text="1"] .hero-text-sub { font-size: clamp(15px, 1.7vw, 20px); position: relative; top: 4.5vh; max-width: 44%; }
-.hero-text[data-hero-text="2"] .hero-text-main { font-size: clamp(38px, 6vw, 76px); position: relative; top: -4.5vh; }
-.hero-text[data-hero-text="2"] .hero-text-sub { font-size: clamp(15px, 1.7vw, 20px); position: relative; top: 4.5vh; }
+.hero-text[data-hero-text="0"] .hero-text-sub { font-size: clamp(13px, 1.05vw, 20px); position: relative; top: 5.5vh; }
+.hero-text[data-hero-text="1"] .hero-text-main { font-size: clamp(38px, 4vw, 76px); position: relative; top: -4.5vh; }
+.hero-text[data-hero-text="1"] .hero-text-sub { font-size: clamp(13px, 1.05vw, 20px); position: relative; top: 4.5vh; max-width: 44%; }
+.hero-text[data-hero-text="2"] .hero-text-main { font-size: clamp(38px, 4vw, 76px); position: relative; top: -4.5vh; }
+.hero-text[data-hero-text="2"] .hero-text-sub { font-size: clamp(13px, 1.05vw, 20px); position: relative; top: 4.5vh; }
 .hero-text[data-hero-text="0"] .hero-text-sub,
 .hero-text[data-hero-text="1"] .hero-text-sub,
 .hero-text[data-hero-text="2"] .hero-text-sub,
@@ -516,6 +530,65 @@ html[lang="en"] .hero-text--center-bottom .hero-text-main { white-space: nowrap;
 @media (max-width: 640px) {
   .hero-text { flex-direction: column; align-items: flex-start; gap: 10px; }
   .hero-text-main, .hero-text-sub { max-width: 100%; text-align: left; }
+  /* Every prop is sized in vw/% of viewport WIDTH, but the hero stays ~100vh tall regardless of
+     screen width — on a narrow phone that shrinks props (debris, ufos, rock, cloud...) far more
+     than the tall canvas around them, so the scene reads as empty. `scale` (not `transform`, which
+     script.js overwrites inline for the slide-in/out animation) bumps them back up in place without
+     touching any of the hand-tuned left/bottom/width values. Sky/field are neutralized right after —
+     they're full-bleed backdrops, already correctly sized at 100% width.
+     `translate` (also independent of `transform`) then re-centers each scene vertically — each one
+     needs its own amount since their authored bottom% values sit at different heights (scene 0's
+     debris cloud already sits near mid-height, scene 2's rock sits near the very bottom, etc.).
+     NOTE: this base rule and every per-element override below are single class selectors on
+     purpose (same specificity) — a `:not():not()` compound here previously outranked every
+     override that came after it, so none of the per-scene tweaks below were taking effect. */
+  .hero-slide { scale: 2.5; translate: 0 -5vh; }
+  .hero-slide--sky, .hero-slide--field { scale: none; translate: none; }
+
+  /* Scene 1 (volcano) — scatter the debris across the whole screen instead of the tight
+     desktop-volcano cluster, cycling through 7 zones covering the corners/edges/center. */
+  .hero-slide--volcano-debris1, .hero-slide--volcano-debris8, .hero-slide--volcano-debris15 { translate: -40vw 25vh; }
+  .hero-slide--volcano-debris2, .hero-slide--volcano-debris9, .hero-slide--volcano-debris16 { translate: 40vw -30vh; }
+  .hero-slide--volcano-debris3, .hero-slide--volcano-debris10, .hero-slide--volcano-debris17 { translate: -30vw -25vh; }
+  .hero-slide--volcano-debris4, .hero-slide--volcano-debris11, .hero-slide--volcano-debris18 { translate: 35vw 30vh; }
+  .hero-slide--volcano-debris5, .hero-slide--volcano-debris12, .hero-slide--volcano-debris19 { translate: 0vw -35vh; }
+  .hero-slide--volcano-debris6, .hero-slide--volcano-debris13, .hero-slide--volcano-debris20 { translate: -20vw 10vh; }
+  .hero-slide--volcano-debris7, .hero-slide--volcano-debris14, .hero-slide--volcano-debris21 { translate: 25vw 5vh; }
+
+  /* Scene 2 (moon) — moon/astronaut pushed further up; butterfly moved down (below screen middle)
+     and further right instead of following the astronaut upward. */
+  .hero-slide--moon { translate: 0 -34vh; }
+  .hero-slide--astronaut { translate: 0 -30vh; }
+  .hero-slide--butterfly { translate: 18vw 4vh; }
+
+  /* Scene 3 (rock) — dead center: rock's left/margin-left math centers it in theory, but on
+     device it's reading left-of-center, so nudge right on top of the vertical translate. */
+  .hero-slide--rock { translate: 6vw -26vh; }
+
+  /* Scene 4 (UFO field) — ufos/cloud/light brought back down. */
+  .hero-slide--cloud { translate: 0 16vh; }
+  .hero-slide--light { translate: 0 24vh; }
+  .hero-slide--ufo { translate: 2.8vw 37vh; }
+  .hero-slide--ufo2, .hero-slide--ufo3 { translate: 0 34vh; }
+  .hero-scene4-light-img { animation: lightFlicker 3.7s steps(1) infinite; }
+  .hero-scene4-light-img + .hero-texture-canvas { animation: none; }
+  .hero-cta-black { padding: 8px 18px; font-size: 12px; right: 6%; bottom: 4%; }
+  .hero-text--center-bottom .hero-text-sub { bottom: 9%; right: 6%; text-align: right; }
+  .hero-text--center-bottom .hero-text-main {
+    top: 26%; white-space: nowrap; text-align: center; max-width: 100%;
+    font-size: clamp(22px, 7.5vw, 38px);
+  }
+  .hero-text[data-hero-text="1"] .hero-text-main,
+  .hero-text[data-hero-text="2"] .hero-text-main { top: 16vh; }
+  .hero-text[data-hero-text="1"] .hero-text-sub,
+  .hero-text[data-hero-text="2"] .hero-text-sub { top: -18vh; align-self: flex-end; text-align: right; max-width: 60%; }
+  .hero-text[data-hero-text="1"] .hero-text-sub { top: -22vh; max-width: 92%; }
+  br.mobile-only { display: revert; }
+  br.desktop-only { display: none; }
+  .hero-text[data-hero-text="1"] { padding-right: 6%; }
+  .hero-text[data-hero-text="0"] { padding-left: 14%; padding-right: 6%; }
+  .hero-text[data-hero-text="0"] .hero-text-main { top: -4vh; }
+  .hero-text[data-hero-text="0"] .hero-text-sub { top: -12vh; align-self: flex-end; text-align: right; max-width: 85%; }
 }
 
 .pulse-dot {
